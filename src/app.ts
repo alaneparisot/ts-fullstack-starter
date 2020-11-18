@@ -1,10 +1,17 @@
 import express from 'express'
 
-import { middlewares, server } from './loaders'
+import { api, database, middlewares, server } from './loaders'
 
-export function init() {
-  const app = express()
+export async function init(): Promise<void> {
+  try {
+    const app = express()
 
-  middlewares.init(app)
-  server.init(app)
+    await database.init()
+
+    middlewares.init(app)
+    api.init(app)
+    server.init(app)
+  } catch (e) {
+    throw new Error('Unable to initialize app.')
+  }
 }
