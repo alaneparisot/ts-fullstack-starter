@@ -21,12 +21,12 @@ export async function login(req: Request, res: Response) {
   const { username, password } = req.body
 
   try {
-    const user = await User.findOne({ username })
+    const user = await User.findOne({ username }).select('+password')
 
     if (user) {
       if (await user.isPasswordValid(password)) {
-        const token = await generateAccessToken(user._id)
-        res.status(200).json({ token })
+        const accessToken = await generateAccessToken(user._id)
+        res.status(200).json({ accessToken })
       } else {
         res.status(401).end()
       }

@@ -1,11 +1,11 @@
 import bcrypt from 'bcrypt'
-import { Document, model, Schema } from 'mongoose'
+import mongoose, { Document, Schema } from 'mongoose'
 
 import config from '../config'
 
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  password: { type: String, required: true, select: false },
 })
 
 userSchema.methods.isPasswordValid = async function (
@@ -36,4 +36,4 @@ export interface IUserDocument extends Document {
   isPasswordValid(password: string): Promise<boolean>
 }
 
-export default model<IUserDocument>('User', userSchema)
+export default mongoose.model<IUserDocument>('User', userSchema)

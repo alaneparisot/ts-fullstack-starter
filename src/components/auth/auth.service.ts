@@ -23,13 +23,15 @@ export function authenticate(
 ) {
   const token = extractToken(req)
 
-  if (!token) return res.sendStatus(401)
+  if (!token) return res.status(403).end()
 
-  jwt.verify(token, config.auth.accessTokenSecret, (err, user) => {
+  const secret = config.auth.accessTokenSecret
+
+  jwt.verify(token, secret, (err, decoded) => {
     if (err) {
-      res.sendStatus(403)
+      res.status(403).end()
     } else {
-      req.user = user
+      req.userId = (<any>decoded).userId
       next()
     }
   })
