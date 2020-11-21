@@ -10,6 +10,9 @@ if (error) {
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
 export default {
+  api: {
+    rootPath: process.env.API_ROOT_PATH as string,
+  },
   auth: {
     accessTokenSecret: process.env.AUTH_ACCESS_TOKEN_SECRET as string,
     saltRounds: parseInt(process.env.AUTH_SALT_ROUNDS as string, 10),

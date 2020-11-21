@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken'
 
 import config from '../../config'
 import { IUserRequest } from '../../types'
-import { extractToken } from './auth.service'
 
 export function hasCredentials(
   req: Request,
@@ -12,11 +11,9 @@ export function hasCredentials(
 ) {
   const { username, password } = req.body
 
-  if (!username || !password) {
-    res.status(400).end()
-  } else {
-    next()
-  }
+  if (!username || !password) return res.status(400).end()
+
+  next()
 }
 
 export function isAuthorized(
@@ -24,18 +21,18 @@ export function isAuthorized(
   res: Response,
   next: NextFunction,
 ) {
-  const token = extractToken(req)
+  const authHeader = req.headers && req.headers.authorization
+  const token = authHeader && authHeader.split(' ')[1]
 
   if (!token) return res.status(403).end()
 
   const secret = config.auth.accessTokenSecret
 
-  jwt.verify(token, secret, (err, decoded) => {
-    if (err) {
-      res.status(403).end()
-    } else {
-      req.userId = (<any>decoded).userId
-      next()
-    }
+  jwt.verify(token, secret, (error, decoded) => {
+    if (error) return res.status(403).end()
+
+    req.userId = (<any>decoded).userId
+
+    next()
   })
 }

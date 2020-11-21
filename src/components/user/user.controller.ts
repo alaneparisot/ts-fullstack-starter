@@ -5,8 +5,7 @@ import { IUserRequest } from '../../types'
 
 export async function getMe(req: IUserRequest, res: Response) {
   try {
-    const user = await User.findById(req.userId)
-    res.status(200).json({ user })
+    res.status(200).json({ user: await User.findById(req.userId) })
   } catch (e) {
     res.status(500).end()
   }
