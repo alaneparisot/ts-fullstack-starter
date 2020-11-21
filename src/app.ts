@@ -4,9 +4,9 @@ import { api, database, middlewares, server } from './loaders'
 
 export async function init(): Promise<void> {
   try {
-    const app = express()
-
     await database.init()
+
+    const app = express()
 
     middlewares.init(app)
     api.init(app)

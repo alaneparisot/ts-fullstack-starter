@@ -1,14 +1,15 @@
 import bcrypt from 'bcrypt'
-import mongoose, { Document, Schema } from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 
 import config from '../config'
+import { IUserDocument } from '../types'
 
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true, select: false },
 })
 
-userSchema.methods.isPasswordValid = async function (
+userSchema.methods.isPassword = async function (
   password: string,
 ): Promise<boolean> {
   return await bcrypt.compare(password, this.password)
@@ -29,11 +30,5 @@ userSchema.pre('save', async function (next) {
     next()
   }
 })
-
-export interface IUserDocument extends Document {
-  username: string
-  password: string
-  isPasswordValid(password: string): Promise<boolean>
-}
 
 export default mongoose.model<IUserDocument>('User', userSchema)

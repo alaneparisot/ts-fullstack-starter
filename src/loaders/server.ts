@@ -9,8 +9,6 @@ export function init(app: express.Application) {
     throw new Error('Unable to find server port.')
   }
 
-  app.get('/', (_req, res) => res.send('Welcome!'))
-
   app.listen(port, () => {
     console.log(`[server] Running at http://localhost:${port} ⚡️`)
   })
