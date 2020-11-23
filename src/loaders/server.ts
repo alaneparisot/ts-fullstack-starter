@@ -1,8 +1,8 @@
-import express from 'express'
+import { Application } from 'express'
 
 import config from '../config'
 
-export function init(app: express.Application) {
+export function init(app: Application) {
   const { port } = config.server
 
   if (!port) {

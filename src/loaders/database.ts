@@ -9,8 +9,6 @@ export async function init(): Promise<void> {
     throw new Error('Unable to find database URI.')
   }
 
-  const params = '?retryWrites=false'
-
   const options = {
     useCreateIndex: true,
     useNewUrlParser: true,
@@ -18,7 +16,7 @@ export async function init(): Promise<void> {
   }
 
   try {
-    await mongoose.connect(URI + params, options)
+    await mongoose.connect(URI, options)
   } catch (e) {
     throw new Error('Unable to connect to database.')
   }
