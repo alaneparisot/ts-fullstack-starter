@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 
 import config from '../config'
+import { logger } from '../utils'
 
 export async function init(): Promise<void> {
   const { URI } = config.database
@@ -17,7 +18,8 @@ export async function init(): Promise<void> {
 
   try {
     await mongoose.connect(URI, options)
-  } catch (e) {
-    throw new Error('Unable to connect to database.')
+  } catch (error) {
+    logger.error('Unable to connect to database.')
+    throw new Error(error)
   }
 }

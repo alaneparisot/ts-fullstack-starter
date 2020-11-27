@@ -1,6 +1,7 @@
 import express from 'express'
 
 import { api, database, errorHandler, middlewares, server } from './loaders'
+import { logger } from './utils'
 
 export async function init(): Promise<void> {
   try {
@@ -12,7 +13,8 @@ export async function init(): Promise<void> {
     api.init(app)
     errorHandler.init(app)
     server.init(app)
-  } catch (e) {
-    throw new Error('Unable to initialize app.')
+  } catch (error) {
+    logger.error('Unable to initialize app.')
+    throw new Error(error)
   }
 }

@@ -4,8 +4,7 @@ async function init() {
   try {
     await app.init()
   } catch (error) {
-    const textColor = '\x1b[31m' // Red.
-    console.log(textColor + '[UNCAUGHT ERROR]', error)
+    throw new Error(error) // Caught by Winston and process.on|uncaughtException
   }
 }
 

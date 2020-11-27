@@ -1,6 +1,7 @@
 import { Application } from 'express'
 
 import config from '../config'
+import { logger } from '../utils'
 
 export function init(app: Application) {
   const { port } = config.server
@@ -10,6 +11,6 @@ export function init(app: Application) {
   }
 
   app.listen(port, () => {
-    console.log(`[server] Running at http://localhost:${port} ⚡️`)
+    logger.info(`Server is running at http://localhost:${port}`)
   })
 }
