@@ -1,15 +1,16 @@
 import { NextFunction, Response } from 'express'
 
-import User from '../../models/User'
 import { IUserRequest } from '../../types'
+import Log from './Log'
 
-export async function getMe(
-  req: IUserRequest,
+export async function getAll(
+  _req: IUserRequest,
   res: Response,
   next: NextFunction,
 ) {
   try {
-    res.status(200).json({ user: await User.findById(req.userId) })
+    const logs = await Log.find({})
+    res.status(200).json({ logs })
   } catch (error) {
     next(error)
   }

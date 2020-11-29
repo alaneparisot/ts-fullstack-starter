@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 
-import User from '../../models/User'
+import User from '../users/User'
 import { generateAccessToken } from './auth.service'
 
 export async function login(req: Request, res: Response, next: NextFunction) {
@@ -13,7 +13,9 @@ export async function login(req: Request, res: Response, next: NextFunction) {
       return res.status(401).end()
     }
 
-    res.status(200).json({ accessToken: await generateAccessToken(user._id) })
+    const accessToken = await generateAccessToken(user._id)
+
+    res.status(200).json({ accessToken })
   } catch (error) {
     next(error)
   }

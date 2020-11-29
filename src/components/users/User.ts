@@ -1,8 +1,13 @@
 import bcrypt from 'bcrypt'
-import mongoose, { Schema } from 'mongoose'
+import mongoose, { Document, Schema } from 'mongoose'
 
-import config from '../config'
-import { IUserDocument } from '../types'
+import config from '../../config'
+
+interface IUserDocument extends Document {
+  username: string
+  password: string
+  isPassword(password: string): Promise<boolean>
+}
 
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true },

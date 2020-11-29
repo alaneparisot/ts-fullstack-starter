@@ -1,10 +1,10 @@
 import express from 'express'
 
 import { authMiddleware } from '../auth'
-import { getMe } from './user.controller'
+import { getAll } from './logs.controller'
 
 const router = express.Router()
 
-router.get('/me', authMiddleware.isAuthorized, getMe)
+router.get('/', authMiddleware.isAuthorized, getAll)
 
 export default router
