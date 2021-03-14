@@ -6,9 +6,6 @@ if (error) {
   throw new Error('Unable to find .env file.')
 }
 
-// Set NODE_ENV to 'development' by default
-process.env.NODE_ENV = process.env.NODE_ENV || 'development'
-
 export default {
   api: {
     rootPath: process.env.API_ROOT_PATH as string,

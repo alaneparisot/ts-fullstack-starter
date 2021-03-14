@@ -8,7 +8,7 @@ import { usersAPI } from '../components/users'
 export function init(app: Application) {
   const { rootPath } = config.api
 
-  app.use(rootPath + '/auth', authAPI)
-  app.use(rootPath + '/logs', logsAPI)
-  app.use(rootPath + '/users', usersAPI)
+  app.use(`${rootPath}/auth`, authAPI)
+  app.use(`${rootPath}/logs`, logsAPI)
+  app.use(`${rootPath}/users`, usersAPI)
 }
