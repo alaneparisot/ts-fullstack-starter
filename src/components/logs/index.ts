@@ -1,2 +1,3 @@
-export { default as logsAPI } from './logs.api'
+export * from './Log'
+export * from './logs.api'
 export * as logsController from './logs.controller'

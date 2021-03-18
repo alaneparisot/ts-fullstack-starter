@@ -1,6 +1,5 @@
 import { NextFunction, Response } from 'express'
-
-import User from './User'
+import { User } from './User'
 import { IUserRequest } from '../../types'
 
 export async function getMe(

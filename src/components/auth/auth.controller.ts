@@ -1,7 +1,19 @@
 import { NextFunction, Request, Response } from 'express'
-
-import User from '../users/User'
+import { COOKIE_OPTIONS } from './auth.constants'
 import { generateAccessToken } from './auth.service'
+import { User } from '../users'
+
+export async function csrfToken(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    res.status(200).json({ csrfToken: req.csrfToken() })
+  } catch (error) {
+    next(error)
+  }
+}
 
 export async function login(req: Request, res: Response, next: NextFunction) {
   try {
@@ -15,7 +27,18 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 
     const accessToken = await generateAccessToken(user._id)
 
-    res.status(200).json({ accessToken })
+    res.cookie('accessToken', accessToken, COOKIE_OPTIONS)
+
+    res.status(200).end()
+  } catch (error) {
+    next(error)
+  }
+}
+
+export async function logout(req: Request, res: Response, next: NextFunction) {
+  try {
+    res.clearCookie('accessToken')
+    res.status(200).end()
   } catch (error) {
     next(error)
   }

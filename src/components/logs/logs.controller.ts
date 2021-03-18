@@ -1,7 +1,6 @@
 import { NextFunction, Response } from 'express'
-
+import { Log } from './Log'
 import { IUserRequest } from '../../types'
-import Log from './Log'
 
 export async function getAll(
   _req: IUserRequest,

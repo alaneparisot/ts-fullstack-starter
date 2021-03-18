@@ -1,6 +1,5 @@
 import bcrypt from 'bcrypt'
 import mongoose, { Document, Schema } from 'mongoose'
-
 import config from '../../config'
 
 interface IUserDocument extends Document {
@@ -36,4 +35,4 @@ userSchema.pre('save', async function (next) {
   }
 })
 
-export default mongoose.model<IUserDocument>('User', userSchema)
+export const User = mongoose.model<IUserDocument>('User', userSchema)

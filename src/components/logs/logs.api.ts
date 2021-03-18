@@ -1,10 +1,9 @@
 import express from 'express'
-
-import { authMiddleware } from '../auth'
 import { getAll } from './logs.controller'
+import { authMiddleware } from '../auth'
 
 const router = express.Router()
 
 router.get('/', authMiddleware.isAuthorized, getAll)
 
-export default router
+export const logApi = router

@@ -1,2 +1,3 @@
-export { default as usersAPI } from './users.api'
-export * as usersController from './users.controller'
+export * from './User'
+export * from './users.api'
+export * as userController from './users.controller'

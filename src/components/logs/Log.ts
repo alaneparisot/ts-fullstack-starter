@@ -14,4 +14,4 @@ const logSchema = new Schema({
   meta: { type: Object },
 })
 
-export default mongoose.model<ILogDocument>('Log', logSchema)
+export const Log = mongoose.model<ILogDocument>('Log', logSchema)

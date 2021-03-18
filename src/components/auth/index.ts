@@ -1,4 +1,5 @@
-export { default as authAPI } from './auth.api'
+export * as authApi from './auth.api'
+export * as authConstants from './auth.constants'
 export * as authController from './auth.controller'
 export * as authMiddleware from './auth.middleware'
 export * as authService from './auth.service'
