@@ -2,47 +2,73 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { User } from './'
 import { AppThunk, RootState } from '../../app'
+import { AsyncRequestStatus } from '../../types'
 
 interface UserState {
-  current: User | null
+  currentUser: User | null
+  fetchCurrentUserStatus: AsyncRequestStatus
 }
 
 const initialState: UserState = {
-  current: null,
+  currentUser: null,
+  fetchCurrentUserStatus: 'idle',
 }
-
-const userApiUrl = '/api/users'
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setCurrent: (state, action: PayloadAction<UserState['current']>) => {
-      state.current = action.payload
+    resetCurrentUser: (state) => {
+      state.currentUser = initialState.currentUser
+    },
+    setCurrentUser: (
+      state,
+      action: PayloadAction<UserState['currentUser']>,
+    ) => {
+      state.currentUser = action.payload
+    },
+    setFetchCurrentUserStatus: (
+      state,
+      action: PayloadAction<UserState['fetchCurrentUserStatus']>,
+    ) => {
+      state.fetchCurrentUserStatus = action.payload
     },
   },
 })
 
-export const { setCurrent } = userSlice.actions
+export const {
+  resetCurrentUser,
+  setCurrentUser,
+  setFetchCurrentUserStatus,
+} = userSlice.actions
+
+const userApiUrl = '/api/users'
 
 export const fetchCurrentUser = (): AppThunk => async (dispatch) => {
   try {
+    dispatch(setFetchCurrentUserStatus('pending'))
+
     const url = `${userApiUrl}/me`
-
     const res = await axios.get(url)
-
     const user = res?.data?.user
 
     if (user) {
-      dispatch(setCurrent(user))
+      dispatch(setCurrentUser(user))
+      dispatch(setFetchCurrentUserStatus('succeeded'))
     } else {
       throw new Error(`No user data in ${url} response.`)
     }
   } catch (err) {
-    dispatch(setCurrent(initialState.current))
+    dispatch(setFetchCurrentUserStatus('failed'))
+  } finally {
+    dispatch(setFetchCurrentUserStatus('idle'))
   }
 }
 
-export const selectCurrentUser = (state: RootState) => state.user.current
+export const selectCurrentUser = (state: RootState) => state.user.currentUser
+
+export const selectFetchCurrentUserStatus = (state: RootState) => {
+  return state.user.fetchCurrentUserStatus
+}
 
 export const userReducer = userSlice.reducer

@@ -1,5 +1,5 @@
-import React from 'react'
+import { Page } from '../../components'
 
 export function Home() {
-  return <div>Home</div>
+  return <Page title="Welcome" />
 }

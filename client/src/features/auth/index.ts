@@ -1,5 +1,5 @@
 export * from './Login'
-export * from './authService'
+export * from './authSlice'
 
 export const ACCESS_TOKEN_COOKIE = 'accessToken'
 
