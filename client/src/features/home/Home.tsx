@@ -1,5 +1,8 @@
+import { useTranslation } from 'react-i18next'
 import { Page } from '../../components'
 
 export function Home() {
-  return <Page title="Welcome" />
+  const { t } = useTranslation(['home'])
+
+  return <Page title={t('welcome')} />
 }

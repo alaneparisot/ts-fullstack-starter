@@ -1,15 +1,32 @@
-import { StrictMode } from 'react'
+import Box from '@material-ui/core/Box'
+import { StrictMode, Suspense } from 'react'
 import { CookiesProvider } from 'react-cookie'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { App, store } from './app'
+import './i18n'
+import './index.css'
 import reportWebVitals from './reportWebVitals'
+import { App, store } from './app'
+import { Spinner } from './components'
+
+const suspenseFallback = (
+  <Box
+    display="flex"
+    justifyContent="center"
+    alignItems="center"
+    height="100vh"
+  >
+    <Spinner />
+  </Box>
+)
 
 ReactDOM.render(
   <StrictMode>
     <CookiesProvider>
       <Provider store={store}>
-        <App />
+        <Suspense fallback={suspenseFallback}>
+          <App />
+        </Suspense>
       </Provider>
     </CookiesProvider>
   </StrictMode>,
