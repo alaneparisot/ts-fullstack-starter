@@ -26,3 +26,6 @@
 - [ ] Unit tests
 - [ ] End-to-end tests
 - [ ] Commit hooks (linter, tests)
+- [ ] Handle error exception on client side
+- [ ] Handle logs on client side
+- [ ] Add analytics
