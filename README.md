@@ -2,7 +2,7 @@
 
 # How to Fork
 
-- Use GitHub clone functionality
+- Import code directly on GitHub
 - Delete .git folder
 - `$ git init`
 - Change git remote
