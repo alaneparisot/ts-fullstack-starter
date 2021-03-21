@@ -1,9 +1,11 @@
+import { PaletteType } from '@material-ui/core/'
 import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ThemeProvider } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useEffect, useMemo } from 'react'
+import { useCookies } from 'react-cookie'
 import { useDispatch, useSelector } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { createTheme, DARK, LIGHT } from './theme'
@@ -20,22 +22,38 @@ import {
   fetchCurrentUser,
   resetCurrentUser,
   selectFetchCurrentUserStatus,
+  setPrefersDarkMode,
 } from '../features/user'
 
 export function App() {
   const dispatch = useDispatch()
 
-  const fetchCsrfTokenStatus = useSelector(selectFetchCsrfTokenStatus)
+  const [cookies] = useCookies(['prefersDarkMode'])
 
+  const fetchCsrfTokenStatus = useSelector(selectFetchCsrfTokenStatus)
   const fetchCurrentUserStatus = useSelector(selectFetchCurrentUserStatus)
   const loginStatus = useSelector(selectLoginStatus)
   const logoutStatus = useSelector(selectLogoutStatus)
 
-  const prefersDarkMode = useMediaQuery(`(prefers-color-scheme: ${DARK})`)
+  const deviceIsInDarkMode = useMediaQuery(`(prefers-color-scheme: ${DARK})`)
 
-  const theme = useMemo(() => createTheme(prefersDarkMode ? DARK : LIGHT), [
-    prefersDarkMode,
-  ])
+  const theme = useMemo(() => {
+    let paletteType: PaletteType
+
+    if (cookies.prefersDarkMode) {
+      const userPrefersDarkMode = cookies.prefersDarkMode === 'true'
+      paletteType = userPrefersDarkMode ? DARK : LIGHT
+      dispatch(setPrefersDarkMode(userPrefersDarkMode))
+    } else if (deviceIsInDarkMode) {
+      paletteType = DARK
+      dispatch(setPrefersDarkMode(true))
+    } else {
+      paletteType = LIGHT
+      dispatch(setPrefersDarkMode(false))
+    }
+
+    return createTheme(paletteType)
+  }, [dispatch, deviceIsInDarkMode, cookies])
 
   useEffect(() => {
     dispatch(fetchCsrfToken())

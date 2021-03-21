@@ -4,14 +4,22 @@ import { User } from './'
 import { AppThunk, RootState } from '../../app'
 import { AsyncRequestStatus } from '../../types'
 
+interface UserPreferences {
+  prefersDarkMode: boolean
+}
+
 interface UserState {
   currentUser: User | null
   fetchCurrentUserStatus: AsyncRequestStatus
+  preferences: UserPreferences
 }
 
 const initialState: UserState = {
   currentUser: null,
   fetchCurrentUserStatus: 'idle',
+  preferences: {
+    prefersDarkMode: false,
+  },
 }
 
 export const userSlice = createSlice({
@@ -33,6 +41,12 @@ export const userSlice = createSlice({
     ) => {
       state.fetchCurrentUserStatus = action.payload
     },
+    setPrefersDarkMode: (
+      state,
+      action: PayloadAction<UserPreferences['prefersDarkMode']>,
+    ) => {
+      state.preferences.prefersDarkMode = action.payload
+    },
   },
 })
 
@@ -40,6 +54,7 @@ export const {
   resetCurrentUser,
   setCurrentUser,
   setFetchCurrentUserStatus,
+  setPrefersDarkMode,
 } = userSlice.actions
 
 const userApiUrl = '/api/users'
@@ -65,10 +80,16 @@ export const fetchCurrentUser = (): AppThunk => async (dispatch) => {
   }
 }
 
-export const selectCurrentUser = (state: RootState) => state.user.currentUser
+export const selectCurrentUser = (state: RootState) => {
+  return state.user.currentUser
+}
 
 export const selectFetchCurrentUserStatus = (state: RootState) => {
   return state.user.fetchCurrentUserStatus
+}
+
+export const selectUserPreferences = (state: RootState) => {
+  return state.user.preferences
 }
 
 export const userReducer = userSlice.reducer

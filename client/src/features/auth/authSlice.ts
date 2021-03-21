@@ -102,7 +102,12 @@ export const selectFetchCsrfTokenStatus = (state: RootState) => {
   return state.auth.fetchCsrfTokenStatus
 }
 
-export const selectLoginStatus = (state: RootState) => state.auth.loginStatus
-export const selectLogoutStatus = (state: RootState) => state.auth.logoutStatus
+export const selectLoginStatus = (state: RootState) => {
+  return state.auth.loginStatus
+}
+
+export const selectLogoutStatus = (state: RootState) => {
+  return state.auth.logoutStatus
+}
 
 export const authReducer = authSlice.reducer

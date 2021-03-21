@@ -1,4 +1,5 @@
 import { StrictMode } from 'react'
+import { CookiesProvider } from 'react-cookie'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { App, store } from './app'
@@ -6,9 +7,11 @@ import reportWebVitals from './reportWebVitals'
 
 ReactDOM.render(
   <StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <CookiesProvider>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </CookiesProvider>
   </StrictMode>,
   document.getElementById('root'),
 )
