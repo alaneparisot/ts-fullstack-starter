@@ -40,10 +40,11 @@
     "node": "15.9.0"
   },
   "scripts": {
+    "dev-install": "yarn && yarn --cwd client install",
+    "dev-start": "concurrently --kill-others-on-fail \"yarn watch-server\" \"yarn watch-client\"",
     "heroku-postbuild": "yarn --cwd client install && yarn --cwd client build",
     "postinstall": "tsc --outDir dist",
     "start": "node dist/index.js",
-    "start-dev": "concurrently --kill-others-on-fail \"yarn watch-server\" \"yarn watch-client\"",
     "watch-client": "yarn --cwd client start",
     "watch-server": "nodemon index.ts"
   }
