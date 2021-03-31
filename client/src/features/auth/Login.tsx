@@ -12,7 +12,7 @@ import { Page } from '../../components'
 export function Login() {
   const dispatch = useDispatch()
   const history = useHistory()
-  const { t } = useTranslation(['auth'])
+  const { t } = useTranslation(['auth', 'form'])
 
   const { register, handleSubmit, errors } = useForm<Credentials>()
 
@@ -38,7 +38,7 @@ export function Login() {
                   name="username"
                   label={t('username')}
                   error={!!errors.username}
-                  helperText={errors.username ? 'This field is required' : ''}
+                  helperText={errors.username ? t('form:requiredField') : ''}
                   fullWidth
                 />
               </Grid>
@@ -48,8 +48,8 @@ export function Login() {
                   type="password"
                   name="password"
                   label={t('password')}
-                  error={!!errors.username}
-                  helperText={errors.username ? 'This field is required' : ''}
+                  error={!!errors.password}
+                  helperText={errors.password ? t('form:requiredField') : ''}
                   fullWidth
                 />
               </Grid>

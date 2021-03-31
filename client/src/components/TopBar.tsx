@@ -25,7 +25,7 @@ export function TopBar() {
       <Toolbar>
         <Typography variant="h6" component="h1" className={classes.title}>
           <StyledLink to="/" className={classes.link}>
-            MERN App
+            MERN TS Starter
           </StyledLink>
         </Typography>
         <UserMenu />
