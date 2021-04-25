@@ -2,21 +2,25 @@ import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import InputAdornment from '@material-ui/core/InputAdornment'
+import Snackbar from '@material-ui/core/Snackbar'
 import TextField from '@material-ui/core/TextField'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
+import Alert, { Color } from '@material-ui/lab/Alert'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { useHistory } from 'react-router-dom'
 import { Credentials, login, selectLoginStatus } from '../auth'
+import { APP_CONSTANTS } from '../../app'
 import { Page } from '../../components'
 
 export function Login() {
   const dispatch = useDispatch()
-  const history = useHistory()
   const { t } = useTranslation(['auth', 'form'])
+
+  const [openAlertError, setOpenAlertError] = useState(false)
+  const [openAlertSuccess, setOpenAlertSuccess] = useState(false)
 
   const [showPassword, setShowPassword] = useState(false)
 
@@ -29,12 +33,22 @@ export function Login() {
   }
 
   useEffect(() => {
-    if (loginStatus === 'succeeded') history.push('/')
-  }, [history, loginStatus])
+    if (loginStatus === 'failed') {
+      setOpenAlertError(true)
+    } else if (loginStatus === 'succeeded') {
+      setOpenAlertSuccess(true)
+    }
+  }, [loginStatus])
 
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword)
+  const handleCloseAlert = (alertSeverity: Color) => {
+    if (alertSeverity === 'error') {
+      setOpenAlertError(false)
+    } else if (alertSeverity === 'success') {
+      setOpenAlertSuccess(false)
+    }
   }
+
+  const handleShowPassword = () => setShowPassword(!showPassword)
 
   return (
     <Page title={t('login')} midWidth>
@@ -66,7 +80,7 @@ export function Login() {
                       <InputAdornment position="end">
                         <IconButton
                           aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
+                          onClick={handleShowPassword}
                         >
                           {showPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
@@ -88,6 +102,24 @@ export function Login() {
           </Grid>
         </Grid>
       </form>
+      <Snackbar
+        open={openAlertError}
+        autoHideDuration={APP_CONSTANTS.autoHideDuration}
+        onClose={() => handleCloseAlert('error')}
+      >
+        <Alert onClose={() => handleCloseAlert('error')} severity="error">
+          {t('loginError')}
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={openAlertSuccess}
+        autoHideDuration={APP_CONSTANTS.autoHideDuration}
+        onClose={() => handleCloseAlert('success')}
+      >
+        <Alert onClose={() => handleCloseAlert('success')} severity="success">
+          {t('loginSuccess')}
+        </Alert>
+      </Snackbar>
     </Page>
   )
 }
