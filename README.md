@@ -24,8 +24,13 @@
 - [ ] ESLint
 - [ ] Authorization roles (admin, user)
 - [ ] Unit tests
-- [ ] End-to-end tests
+- [ ] End-to-end tests (Cypress)
 - [ ] Commit hooks (linter, tests)
 - [ ] Handle error exception on client side
 - [ ] Handle logs on client side
 - [ ] Add analytics
+- [ ] Add Storybook
+- [ ] Move to PostgreSQL (+Type ORM)
+- [ ] Use Redis
+- [ ] Move to GraphQL
+- [ ] Run things on CI (test before deploy)
