@@ -1,6 +1,10 @@
-# MERN Starter
+# MERN TS Starter
 
-# How to Fork
+## Demo
+
+[mern-ts-starter](https://mern-ts-starter.herokuapp.com/)
+
+## How to Fork
 
 - Import code directly on GitHub
 - Delete .git folder
