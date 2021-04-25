@@ -1,7 +1,11 @@
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
+import IconButton from '@material-ui/core/IconButton'
+import InputAdornment from '@material-ui/core/InputAdornment'
 import TextField from '@material-ui/core/TextField'
-import { useEffect } from 'react'
+import Visibility from '@material-ui/icons/Visibility'
+import VisibilityOff from '@material-ui/icons/VisibilityOff'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -14,6 +18,8 @@ export function Login() {
   const history = useHistory()
   const { t } = useTranslation(['auth', 'form'])
 
+  const [showPassword, setShowPassword] = useState(false)
+
   const { register, handleSubmit, errors } = useForm<Credentials>()
 
   const loginStatus = useSelector(selectLoginStatus)
@@ -25,6 +31,10 @@ export function Login() {
   useEffect(() => {
     if (loginStatus === 'succeeded') history.push('/')
   }, [history, loginStatus])
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword)
+  }
 
   return (
     <Page title={t('login')} midWidth>
@@ -45,12 +55,24 @@ export function Login() {
               <Grid item>
                 <TextField
                   inputRef={register({ required: true })}
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   name="password"
                   label={t('password')}
                   error={!!errors.password}
                   helperText={errors.password ? t('form:requiredField') : ''}
                   fullWidth
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                        >
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
               </Grid>
             </Grid>

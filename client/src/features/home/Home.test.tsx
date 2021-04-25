@@ -1,4 +1,4 @@
-import { render, screen } from '../../test-utils'
+import { render, screen } from '../../utils/test-utils'
 import { Home } from './Home'
 
 test('displays welcome message without username if user is not connected', () => {

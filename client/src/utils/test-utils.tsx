@@ -2,7 +2,7 @@ import { configureStore, DeepPartial, EnhancedStore } from '@reduxjs/toolkit'
 import { render as rtlRender, RenderOptions } from '@testing-library/react'
 import { FC, ReactElement } from 'react'
 import { Provider } from 'react-redux'
-import { reducer, RootState } from './app'
+import { reducer, RootState } from '../app'
 
 interface CustomRenderOptions {
   preloadedState?: DeepPartial<RootState>
