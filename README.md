@@ -8,6 +8,7 @@
 
 - Import code directly on GitHub
 - Delete .git folder
+- Delete .git folder in client folder
 - `$ git init`
 - Change git remote
 - Update `package.json`
