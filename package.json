@@ -42,7 +42,6 @@
   "scripts": {
     "dev": "concurrently --kill-others-on-fail \"yarn watch-server\" \"yarn watch-client\"",
     "heroku-postbuild": "yarn --cwd client install && yarn --cwd client build",
-    "install": "yarn && yarn --cwd client install",
     "postinstall": "tsc --outDir dist",
     "start": "node dist/index.js",
     "watch-client": "yarn --cwd client start",
