@@ -24,6 +24,28 @@
 - `$ git commit -m "Initial commit"`
 - `$ git push -u origin main`
 
+## Warnings
+
+### client > package.json
+
+- Add `INLINE_RUNTIME_CHUNK=false` before script `react-scripts build`
+- Write `set INLINE_RUNTIME_CHUNK=false&&react-scripts build` for Windows
+- Set `proxy` value (port should match default value in src > config > index.ts)
+
+### src > config > index.ts
+
+- Server port should be read from the variable name `PORT` in `process.env.PORT`
+- Server port default value should match port value in client > package.json > proxy
+
+### src > loaders > errorHandlers.ts
+
+- Avoid `JSON.stringify()` error
+- Keep `_next` in the method catching Express middleware errors
+
+### package.json
+
+- Avoid naming a script `install`
+
 ## Todo
 
 - [ ] ESLint
@@ -39,3 +61,4 @@
 - [ ] Use Redis
 - [ ] Move to GraphQL
 - [ ] Run things on CI (test before deploy)
+- [ ] Record a video tutorial

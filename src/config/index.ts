@@ -28,6 +28,6 @@ export default {
      * @see https://stackoverflow.com/a/15693371 "Heroku dynamically assigns
      * your app a port, so you can't set the port to a fixed number."
      */
-    port: process.env.PORT || 5000,
+    port: process.env.PORT || 5000, // Default value should match value in client > package.json > proxy
   },
 }

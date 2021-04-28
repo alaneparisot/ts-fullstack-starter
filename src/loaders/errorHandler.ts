@@ -14,6 +14,7 @@ process.on('uncaughtException', (error: Error) => {
 })
 
 export function init(app: Application) {
+  // Keep _next to avoid error "TypeError: res.status is not a function"
   app.use((error: Error, _req: Request, res: Response, _next: NextFunction) => {
     const metadata = { middleware: true }
     logger.error(error && error.message, { metadata })
