@@ -9,7 +9,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import Alert, { Color } from '@material-ui/lab/Alert'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { Credentials, login, selectLoginStatus } from '../auth'
 import { APP_CONSTANTS } from '../../app'
@@ -24,11 +24,16 @@ export function Login() {
 
   const [showPassword, setShowPassword] = useState(false)
 
-  const { register, handleSubmit, errors } = useForm<Credentials>()
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<Credentials>()
 
   const loginStatus = useSelector(selectLoginStatus)
 
   const onSubmit = (credentials: Credentials) => {
+    console.log('onSubmit', credentials)
     dispatch(login(credentials))
   }
 
@@ -57,36 +62,61 @@ export function Login() {
           <Grid item>
             <Grid container direction="column" spacing={1}>
               <Grid item>
-                <TextField
-                  inputRef={register({ required: true })}
+                <Controller
                   name="username"
-                  label={t('username')}
-                  error={!!errors.username}
-                  helperText={errors.username ? t('form:requiredField') : ''}
-                  fullWidth
+                  defaultValue=""
+                  // rules={{ required: true }}
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      name="username"
+                      label={t('username')}
+                      // inputProps={{ 'data-testid': 'username-input' }}
+                      // error={!!errors.username}
+                      helperText={
+                        errors.username ? t('form:requiredField') : ''
+                      }
+                      fullWidth
+                    />
+                  )}
                 />
               </Grid>
               <Grid item>
-                <TextField
-                  inputRef={register({ required: true })}
-                  type={showPassword ? 'text' : 'password'}
+                <Controller
                   name="password"
-                  label={t('password')}
-                  error={!!errors.password}
-                  helperText={errors.password ? t('form:requiredField') : ''}
-                  fullWidth
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleShowPassword}
-                        >
-                          {showPassword ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
+                  defaultValue=""
+                  // rules={{ required: true }}
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      type={showPassword ? 'text' : 'password'}
+                      label={t('password')}
+                      // inputProps={{ 'data-testid': 'password-input' }}
+                      // error={!!errors.password}
+                      helperText={
+                        errors.password ? t('form:requiredField') : ''
+                      }
+                      fullWidth
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleShowPassword}
+                            >
+                              {showPassword ? (
+                                <Visibility />
+                              ) : (
+                                <VisibilityOff />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  )}
                 />
               </Grid>
             </Grid>
@@ -94,7 +124,12 @@ export function Login() {
           <Grid item>
             <Grid container justify="flex-end">
               <Grid item>
-                <Button type="submit" variant="contained" color="primary">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  data-testid="hello"
+                >
                   {t('login')}
                 </Button>
               </Grid>
@@ -102,6 +137,7 @@ export function Login() {
           </Grid>
         </Grid>
       </form>
+
       <Snackbar
         open={openAlertError}
         autoHideDuration={APP_CONSTANTS.autoHideDuration}
@@ -111,6 +147,7 @@ export function Login() {
           {t('loginError')}
         </Alert>
       </Snackbar>
+
       <Snackbar
         open={openAlertSuccess}
         autoHideDuration={APP_CONSTANTS.autoHideDuration}
