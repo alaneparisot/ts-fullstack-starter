@@ -24,11 +24,11 @@ const render = (
     ...renderOptions
   }: CustomRenderOptions = {},
 ) => {
-  const Wrapper: FC = ({ children }) => (
+  const wrapper: FC = ({ children }) => (
     <Provider store={store}>{children}</Provider>
   )
 
-  return rtlRender(ui, { wrapper: Wrapper, ...renderOptions })
+  return rtlRender(ui, { wrapper, ...renderOptions })
 }
 
 export * from '@testing-library/react'
