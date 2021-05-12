@@ -65,15 +65,14 @@ export function Login() {
                 <Controller
                   name="username"
                   defaultValue=""
-                  // rules={{ required: true }}
+                  rules={{ required: true }}
                   control={control}
                   render={({ field }) => (
                     <TextField
                       {...field}
-                      name="username"
                       label={t('username')}
-                      // inputProps={{ 'data-testid': 'username-input' }}
-                      // error={!!errors.username}
+                      data-testid="username-input"
+                      error={!!errors.username}
                       helperText={
                         errors.username ? t('form:requiredField') : ''
                       }
@@ -86,15 +85,15 @@ export function Login() {
                 <Controller
                   name="password"
                   defaultValue=""
-                  // rules={{ required: true }}
+                  rules={{ required: true }}
                   control={control}
                   render={({ field }) => (
                     <TextField
                       {...field}
-                      type={showPassword ? 'text' : 'password'}
                       label={t('password')}
-                      // inputProps={{ 'data-testid': 'password-input' }}
-                      // error={!!errors.password}
+                      data-testid="password-input"
+                      type={showPassword ? 'text' : 'password'}
+                      error={!!errors.password}
                       helperText={
                         errors.password ? t('form:requiredField') : ''
                       }
@@ -102,10 +101,7 @@ export function Login() {
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
-                            <IconButton
-                              aria-label="toggle password visibility"
-                              onClick={handleShowPassword}
-                            >
+                            <IconButton onClick={handleShowPassword}>
                               {showPassword ? (
                                 <Visibility />
                               ) : (
