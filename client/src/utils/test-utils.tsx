@@ -3,6 +3,8 @@ import { render as rtlRender, RenderOptions } from '@testing-library/react'
 import { FC, ReactElement } from 'react'
 import { Provider } from 'react-redux'
 import { reducer, RootState } from '../app'
+import { initialState as authInitialState } from '../features/auth'
+import { initialState as userInitialState } from '../features/user'
 
 interface CustomRenderOptions {
   preloadedState?: DeepPartial<RootState>
@@ -20,6 +22,9 @@ jest.mock('react-i18next', () => ({
       }
 
       return result
+    },
+    i18n: {
+      language: 'en-US',
     },
   }),
 }))
@@ -40,5 +45,10 @@ const render = (
 }
 
 export * from '@testing-library/react'
+
+export const initialState: RootState = {
+  auth: authInitialState,
+  user: userInitialState,
+}
 
 export { render }

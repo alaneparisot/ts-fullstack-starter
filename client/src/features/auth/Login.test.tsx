@@ -9,12 +9,16 @@ import {
 } from '../../utils/test-utils'
 import { Login } from './Login'
 
-function findFormField(screen: Screen, fieldName: string) {
+function getFormField(screen: Screen, fieldName: string) {
   return screen.getByTestId(`form-field-${fieldName}`)
 }
 
+function getFormSubmit(screen: Screen) {
+  return screen.getByTestId('form-submit')
+}
+
 function typeInFormField(screen: Screen, fieldName: string, value: string) {
-  const field = findFormField(screen, fieldName)
+  const field = getFormField(screen, fieldName)
   const input = within(field).getByLabelText(`i18n-${fieldName}`)
 
   fireEvent.input(input, { target: { value } })
@@ -29,8 +33,8 @@ describe('Login', () => {
       render(<Login />)
 
       // Assert
-      const usernameFormField = findFormField(screen, 'username')
-      const passwordFormField = findFormField(screen, 'password')
+      const usernameFormField = getFormField(screen, 'username')
+      const passwordFormField = getFormField(screen, 'password')
       expect(usernameFormField.textContent).not.toContain(errorMessage)
       expect(passwordFormField.textContent).not.toContain(errorMessage)
     })
@@ -40,12 +44,12 @@ describe('Login', () => {
       render(<Login />)
 
       await act(async () => {
-        fireEvent.submit(screen.getByTestId('form-submit'))
+        fireEvent.submit(getFormSubmit(screen))
       })
 
       // Assert
-      const usernameFormField = findFormField(screen, 'username')
-      const passwordFormField = findFormField(screen, 'password')
+      const usernameFormField = getFormField(screen, 'username')
+      const passwordFormField = getFormField(screen, 'password')
       expect(usernameFormField.textContent).toContain(errorMessage)
       expect(passwordFormField.textContent).toContain(errorMessage)
     })
@@ -81,7 +85,7 @@ describe('Login', () => {
         typeInFormField(screen, 'username', username)
         typeInFormField(screen, 'password', password)
 
-        fireEvent.submit(screen.getByTestId('form-submit'))
+        fireEvent.submit(getFormSubmit(screen))
       })
 
       // Assert

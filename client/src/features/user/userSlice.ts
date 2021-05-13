@@ -14,7 +14,7 @@ interface UserState {
   preferences: UserPreferences
 }
 
-const initialState: UserState = {
+export const initialState: UserState = {
   currentUser: null,
   fetchCurrentUserStatus: 'idle',
   preferences: {

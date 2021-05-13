@@ -10,7 +10,7 @@ interface AuthState {
   logoutStatus: AsyncRequestStatus
 }
 
-const initialState: AuthState = {
+export const initialState: AuthState = {
   fetchCsrfTokenStatus: 'idle',
   loginStatus: 'idle',
   logoutStatus: 'idle',

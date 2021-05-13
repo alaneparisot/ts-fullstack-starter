@@ -95,7 +95,7 @@ export function UserMenu() {
         onClose={handleMenuClose}
       >
         {user ? (
-          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          <MenuItem onClick={handleLogout}>{t('auth:logout')}</MenuItem>
         ) : (
           <MenuItem onClick={() => handleLinkClick('/login')}>
             {t('auth:login')}

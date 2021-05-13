@@ -1,4 +1,5 @@
-import { render, screen } from '../../utils/test-utils'
+import produce from 'immer'
+import { initialState, render, screen } from '../../utils/test-utils'
 import { Home } from './Home'
 
 describe('Home', () => {
@@ -12,20 +13,18 @@ describe('Home', () => {
 
   it('should display welcome message and username if user is connected', () => {
     // Arrange
-    const initialState = {
-      user: {
-        currentUser: {
-          _id: '',
-          username: 'johndoe',
-          token: '',
-        },
-      },
-    }
+    const state = produce(initialState, (draftState) => {
+      draftState.user.currentUser = {
+        _id: '',
+        token: '',
+        username: 'John Doe',
+      }
+    })
 
     // Act
-    render(<Home />, { preloadedState: initialState })
+    render(<Home />, { preloadedState: state })
 
     // Assert
-    expect(screen.getByText(/^i18n-welcomeName.+johndoe/)).toBeInTheDocument()
+    expect(screen.getByText(/^i18n-welcomeName.+John Doe/)).toBeInTheDocument()
   })
 })
