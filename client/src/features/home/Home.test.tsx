@@ -2,7 +2,7 @@ import { render, screen } from '../../utils/test-utils'
 import { Home } from './Home'
 
 describe('Home', () => {
-  it('should display simple welcome message when user not connected', () => {
+  it('should display simple welcome message if user is not connected', () => {
     // Act
     render(<Home />)
 
@@ -10,7 +10,7 @@ describe('Home', () => {
     expect(screen.getByText('i18n-welcome')).toBeInTheDocument()
   })
 
-  it('should display welcome message with username when user connected', () => {
+  it('should display welcome message and username if user is connected', () => {
     // Arrange
     const initialState = {
       user: {

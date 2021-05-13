@@ -9,31 +9,61 @@ import {
 } from '../../utils/test-utils'
 import { Login } from './Login'
 
+function findFormField(screen: Screen, fieldName: string) {
+  return screen.getByTestId(`form-field-${fieldName}`)
+}
+
+function typeInFormField(screen: Screen, fieldName: string, value: string) {
+  const field = findFormField(screen, fieldName)
+  const input = within(field).getByLabelText(`i18n-${fieldName}`)
+
+  fireEvent.input(input, { target: { value } })
+}
+
 describe('Login', () => {
-  it('should display error messages when credentials are missing', async () => {
-    // Arrange
+  describe('Error Messages', () => {
     const errorMessage = 'i18n-form:requiredField'
 
-    // Act
-    render(<Login />)
+    it('should not display error messages if no submit is done', () => {
+      // Act
+      render(<Login />)
 
-    await act(async () => {
-      fireEvent.submit(screen.getByTestId('form-submit'))
+      // Assert
+      const usernameFormField = findFormField(screen, 'username')
+      const passwordFormField = findFormField(screen, 'password')
+      expect(usernameFormField.textContent).not.toContain(errorMessage)
+      expect(passwordFormField.textContent).not.toContain(errorMessage)
     })
 
-    // Assert
-    const usernameFormField = findFormField(screen, 'username')
-    const passwordFormField = findFormField(screen, 'password')
-    expect(usernameFormField.textContent).toContain(errorMessage)
-    expect(passwordFormField.textContent).toContain(errorMessage)
+    it('should display error messages if credentials are missing', async () => {
+      // Act
+      render(<Login />)
+
+      await act(async () => {
+        fireEvent.submit(screen.getByTestId('form-submit'))
+      })
+
+      // Assert
+      const usernameFormField = findFormField(screen, 'username')
+      const passwordFormField = findFormField(screen, 'password')
+      expect(usernameFormField.textContent).toContain(errorMessage)
+      expect(passwordFormField.textContent).toContain(errorMessage)
+    })
   })
 
   describe('Notifications', () => {
-    type runTestParams = {
+    const errorNotificationText = 'i18n-loginError'
+    const successNotificationText = 'i18n-loginSuccess'
+
+    type RunTestParams = {
       loginShouldSucceed: boolean
+      notificationText: string
     }
 
-    const runTest = async ({ loginShouldSucceed }: runTestParams) => {
+    const testNotificationIsInTheDocument = async ({
+      loginShouldSucceed,
+      notificationText,
+    }: RunTestParams) => {
       // Arrange
       const username = 'johndoe'
       const password = '1234567'
@@ -43,10 +73,6 @@ describe('Login', () => {
       const queryMock = loginShouldSucceed
         ? jest.spyOn(axios, 'post').mockResolvedValue(undefined)
         : jest.spyOn(axios, 'post').mockRejectedValue(undefined)
-
-      const notificationText = loginShouldSucceed
-        ? 'i18n-loginSuccess'
-        : 'i18n-loginError'
 
       // Act
       render(<Login />)
@@ -63,25 +89,29 @@ describe('Login', () => {
       expect(screen.getByText(notificationText)).toBeInTheDocument()
     }
 
-    it('should display success notification when login succeed', async () => {
-      await runTest({ loginShouldSucceed: true })
+    it('should not display notifications if no submit is done', () => {
+      // Act
+      render(<Login />)
+
+      // Assert
+      const errorNotificationEl = screen.queryByText(errorNotificationText)
+      const successNotificationEl = screen.queryByText(successNotificationText)
+      expect(errorNotificationEl).not.toBeInTheDocument()
+      expect(successNotificationEl).not.toBeInTheDocument()
     })
 
-    it('should display error notification when login failed', async () => {
-      await runTest({ loginShouldSucceed: false })
+    it('should display success notification if login succeed', async () => {
+      await testNotificationIsInTheDocument({
+        loginShouldSucceed: true,
+        notificationText: successNotificationText,
+      })
+    })
+
+    it('should display error notification if login failed', async () => {
+      await testNotificationIsInTheDocument({
+        loginShouldSucceed: false,
+        notificationText: errorNotificationText,
+      })
     })
   })
 })
-
-// Helpers
-
-function findFormField(screen: Screen, fieldName: string) {
-  return screen.getByTestId(`form-field-${fieldName}`)
-}
-
-function typeInFormField(screen: Screen, fieldName: string, value: string) {
-  const field = findFormField(screen, fieldName)
-  const input = within(field).getByLabelText(`i18n-${fieldName}`)
-
-  fireEvent.input(input, { target: { value } })
-}
