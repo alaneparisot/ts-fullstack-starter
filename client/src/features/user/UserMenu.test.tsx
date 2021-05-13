@@ -14,7 +14,7 @@ describe('UserMenu', () => {
 
     it('should display logout button if user is connected', () => {
       // Arrange
-      const state = produce(initialState, (draftState) => {
+      const preloadedState = produce(initialState, (draftState) => {
         draftState.user.currentUser = {
           _id: '',
           token: '',
@@ -23,7 +23,7 @@ describe('UserMenu', () => {
       })
 
       // Act
-      render(<UserMenu />, { preloadedState: state })
+      render(<UserMenu />, { preloadedState })
 
       // Assert
       expect(screen.getByText('i18n-auth:logout')).toBeInTheDocument()

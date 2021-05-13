@@ -13,7 +13,7 @@ describe('Home', () => {
 
   it('should display welcome message and username if user is connected', () => {
     // Arrange
-    const state = produce(initialState, (draftState) => {
+    const preloadedState = produce(initialState, (draftState) => {
       draftState.user.currentUser = {
         _id: '',
         token: '',
@@ -22,7 +22,7 @@ describe('Home', () => {
     })
 
     // Act
-    render(<Home />, { preloadedState: state })
+    render(<Home />, { preloadedState })
 
     // Assert
     expect(screen.getByText(/^i18n-welcomeName.+John Doe/)).toBeInTheDocument()
