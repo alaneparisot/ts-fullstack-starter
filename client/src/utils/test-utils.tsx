@@ -12,7 +12,15 @@ interface CustomRenderOptions {
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: (key: string, options: any) => `i18n-${key}-${JSON.stringify(options)}`,
+    t: (key: string, options: any) => {
+      let result = `i18n-${key}`
+
+      if (options) {
+        result += `-${JSON.stringify(options)}`
+      }
+
+      return result
+    },
   }),
 }))
 

@@ -33,7 +33,6 @@ export function Login() {
   const loginStatus = useSelector(selectLoginStatus)
 
   const onSubmit = (credentials: Credentials) => {
-    console.log('onSubmit', credentials)
     dispatch(login(credentials))
   }
 
@@ -70,8 +69,9 @@ export function Login() {
                   render={({ field }) => (
                     <TextField
                       {...field}
+                      id="username"
                       label={t('username')}
-                      data-testid="username-input"
+                      data-testid="form-field-username"
                       error={!!errors.username}
                       helperText={
                         errors.username ? t('form:requiredField') : ''
@@ -90,8 +90,9 @@ export function Login() {
                   render={({ field }) => (
                     <TextField
                       {...field}
+                      id="password"
                       label={t('password')}
-                      data-testid="password-input"
+                      data-testid="form-field-password"
                       type={showPassword ? 'text' : 'password'}
                       error={!!errors.password}
                       helperText={
@@ -124,7 +125,7 @@ export function Login() {
                   type="submit"
                   variant="contained"
                   color="primary"
-                  data-testid="hello"
+                  data-testid="form-submit"
                 >
                   {t('login')}
                 </Button>
@@ -133,6 +134,8 @@ export function Login() {
           </Grid>
         </Grid>
       </form>
+
+      {/* Notifications */}
 
       <Snackbar
         open={openAlertError}
