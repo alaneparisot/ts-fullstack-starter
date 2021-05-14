@@ -9,7 +9,7 @@ type PageProps = {
 
 export function Page({ children, midWidth, title }: PageProps) {
   return (
-    <Grid container justify="center">
+    <Grid container justify="center" data-testid={`page-${title}`}>
       <Grid item xs={12} sm={midWidth ? 6 : 12}>
         <Grid container direction="column" spacing={5}>
           <Grid item>

@@ -7,7 +7,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useEffect, useMemo } from 'react'
 import { useCookies } from 'react-cookie'
 import { useDispatch, useSelector } from 'react-redux'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { createTheme, DARK, LIGHT } from './theme'
 import { TopBar } from '../components'
 import {
@@ -73,21 +73,19 @@ export function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router>
-        <TopBar />
-        <Container>
-          <Box pt={5}>
-            <Switch>
-              <Route path="/login">
-                <Login />
-              </Route>
-              <Route path="/">
-                <Home />
-              </Route>
-            </Switch>
-          </Box>
-        </Container>
-      </Router>
+      <TopBar />
+      <Container>
+        <Box pt={5}>
+          <Switch>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </Box>
+      </Container>
     </ThemeProvider>
   )
 }

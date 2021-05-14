@@ -2,6 +2,7 @@ import Box from '@material-ui/core/Box'
 import { StrictMode, Suspense } from 'react'
 import { CookiesProvider } from 'react-cookie'
 import ReactDOM from 'react-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import './i18n'
 import './index.css'
@@ -25,7 +26,9 @@ ReactDOM.render(
     <CookiesProvider>
       <Provider store={store}>
         <Suspense fallback={suspenseFallback}>
-          <App />
+          <Router>
+            <App />
+          </Router>
         </Suspense>
       </Provider>
     </CookiesProvider>
