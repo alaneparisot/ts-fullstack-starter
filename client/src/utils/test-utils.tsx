@@ -26,6 +26,7 @@ jest.mock('react-i18next', () => ({
     },
     i18n: {
       language: 'en-US',
+      changeLanguage: jest.fn(),
     },
   }),
 }))

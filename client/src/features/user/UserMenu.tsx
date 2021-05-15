@@ -79,14 +79,14 @@ export function UserMenu() {
     <Spinner />
   ) : (
     <>
-      <Box mr={1}>
+      <Box mr={1} data-testid="username">
         <Typography variant="body2">{user?.username}</Typography>
       </Box>
       <IconButton onClick={handleIconClick}>
         <AccountCircle />
       </IconButton>
       <Menu
-        id="menu-user"
+        data-testid="user-menu"
         anchorEl={anchorEl}
         anchorOrigin={menuOrigin}
         keepMounted
