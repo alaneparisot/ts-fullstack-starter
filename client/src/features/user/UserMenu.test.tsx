@@ -32,8 +32,10 @@ describe('UserMenu', () => {
   describe('Authentication', () => {
     describe('Login', () => {
       it('should switch to login page when user clicks on login button', () => {
-        // Act
+        // Arrange
         render(<App />)
+
+        // Act
         userEvent.click(getUserMenuItem('i18n-auth:login'))
 
         // Assert
@@ -42,7 +44,6 @@ describe('UserMenu', () => {
     })
 
     describe('Logout', () => {
-      // Arrange
       const username = 'johndoe'
 
       const preloadedState = produce(initialState, (draftState) => {
@@ -54,7 +55,7 @@ describe('UserMenu', () => {
       })
 
       it('should display username if user is connected', () => {
-        // Act
+        // Arrange
         render(<UserMenu />, { preloadedState })
 
         // Assert
@@ -66,9 +67,9 @@ describe('UserMenu', () => {
         const queryMock = jest.spyOn(axios, 'post').mockResolvedValue(undefined)
         const queryPath = expect.stringContaining('logout')
 
-        // Act
         render(<App />, { preloadedState })
 
+        // Act
         await act(async () => {
           userEvent.click(getUserMenuItem('i18n-auth:logout'))
         })
@@ -82,7 +83,7 @@ describe('UserMenu', () => {
 
   describe('Dark Mode', () => {
     it('should be light mode by default', () => {
-      // Act
+      // Arrange
       render(<UserMenu />, { preloadedState: initialState })
 
       // Assert
@@ -90,8 +91,10 @@ describe('UserMenu', () => {
     })
 
     it('should change to dark mode on switch toggle', () => {
-      // Act
+      // Arrange
       render(<UserMenu />, { preloadedState: initialState })
+
+      // Act
       userEvent.click(getDarkModeSwitch())
 
       // Assert
@@ -101,7 +104,7 @@ describe('UserMenu', () => {
 
   describe('Language', () => {
     it('should be i18n selected language by default', () => {
-      // Act
+      // Arrange
       render(<UserMenu />)
 
       // Assert
@@ -110,9 +113,10 @@ describe('UserMenu', () => {
     })
 
     it('should change to French when fr-FR option is selected', () => {
-      // Act
+      // Arrange
       render(<UserMenu />)
 
+      // Act
       userEvent.click(getLanguageSelect())
       userEvent.click(screen.getByTestId('language-option-fr-FR'))
 

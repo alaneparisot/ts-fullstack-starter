@@ -4,7 +4,7 @@ import { Home } from './Home'
 
 describe('Home', () => {
   it('should display simple welcome message if user is not connected', () => {
-    // Act
+    // Arrange
     render(<Home />)
 
     // Assert
@@ -21,7 +21,6 @@ describe('Home', () => {
       }
     })
 
-    // Act
     render(<Home />, { preloadedState })
 
     // Assert

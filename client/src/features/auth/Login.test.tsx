@@ -1,27 +1,22 @@
+import userEvent from '@testing-library/user-event'
 import axios from 'axios'
 import { act } from 'react-dom/test-utils'
-import {
-  fireEvent,
-  render,
-  screen,
-  Screen,
-  within,
-} from '../../utils/test-utils'
+import { render, screen, within } from '../../utils/test-utils'
 import { Login } from './Login'
 
-function getFormField(screen: Screen, fieldName: string) {
+function getFormField(fieldName: string) {
   return screen.getByTestId(`form-field-${fieldName}`)
 }
 
-function getFormSubmit(screen: Screen) {
+function getFormSubmit() {
   return screen.getByTestId('form-submit')
 }
 
-function typeInFormField(screen: Screen, fieldName: string, value: string) {
-  const field = getFormField(screen, fieldName)
+function typeInFormField(fieldName: string, text: string) {
+  const field = getFormField(fieldName)
   const input = within(field).getByLabelText(`i18n-${fieldName}`)
 
-  fireEvent.input(input, { target: { value } })
+  userEvent.type(input, text)
 }
 
 describe('Login', () => {
@@ -29,27 +24,28 @@ describe('Login', () => {
     const errorMessage = 'i18n-form:requiredField'
 
     it('should not display error messages if no submit is done', () => {
-      // Act
+      // Arrange
       render(<Login />)
 
       // Assert
-      const usernameFormField = getFormField(screen, 'username')
-      const passwordFormField = getFormField(screen, 'password')
+      const usernameFormField = getFormField('username')
+      const passwordFormField = getFormField('password')
       expect(usernameFormField.textContent).not.toContain(errorMessage)
       expect(passwordFormField.textContent).not.toContain(errorMessage)
     })
 
     it('should display error messages if credentials are missing', async () => {
-      // Act
+      // Arrange
       render(<Login />)
 
+      // Act
       await act(async () => {
-        fireEvent.submit(getFormSubmit(screen))
+        userEvent.click(getFormSubmit())
       })
 
       // Assert
-      const usernameFormField = getFormField(screen, 'username')
-      const passwordFormField = getFormField(screen, 'password')
+      const usernameFormField = getFormField('username')
+      const passwordFormField = getFormField('password')
       expect(usernameFormField.textContent).toContain(errorMessage)
       expect(passwordFormField.textContent).toContain(errorMessage)
     })
@@ -59,7 +55,7 @@ describe('Login', () => {
     const errorNotificationText = 'i18n-loginError'
     const successNotificationText = 'i18n-loginSuccess'
 
-    type RunTestParams = {
+    type TestParams = {
       loginShouldSucceed: boolean
       notificationText: string
     }
@@ -67,7 +63,7 @@ describe('Login', () => {
     const testNotificationIsInTheDocument = async ({
       loginShouldSucceed,
       notificationText,
-    }: RunTestParams) => {
+    }: TestParams) => {
       // Arrange
       const username = 'johndoe'
       const password = '1234567'
@@ -78,14 +74,14 @@ describe('Login', () => {
         ? jest.spyOn(axios, 'post').mockResolvedValue(undefined)
         : jest.spyOn(axios, 'post').mockRejectedValue(undefined)
 
-      // Act
       render(<Login />)
 
-      await act(async () => {
-        typeInFormField(screen, 'username', username)
-        typeInFormField(screen, 'password', password)
+      // Act
+      typeInFormField('username', username)
+      typeInFormField('password', password)
 
-        fireEvent.submit(getFormSubmit(screen))
+      await act(async () => {
+        userEvent.click(getFormSubmit())
       })
 
       // Assert
@@ -94,7 +90,7 @@ describe('Login', () => {
     }
 
     it('should not display notifications if no submit is done', () => {
-      // Act
+      // Arrange
       render(<Login />)
 
       // Assert
