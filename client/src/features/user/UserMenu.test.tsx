@@ -15,6 +15,11 @@ function getDarkModeSwitch() {
   return screen.getByLabelText('i18n-darkMode')
 }
 
+function getLanguageSelect() {
+  const languageMenuItem = screen.getByTestId('user-menu-item-language')
+  return within(languageMenuItem).getByLabelText(/^i18n-language/)
+}
+
 function getUserMenuItem(itemText: string) {
   return within(screen.getByTestId('user-menu')).getByText(itemText)
 }
@@ -26,7 +31,7 @@ function getUsername(usernameText: string) {
 describe('UserMenu', () => {
   describe('Authentication', () => {
     describe('Login', () => {
-      it('should switch to login page if login button is clicked', () => {
+      it('should switch to login page when user clicks on login button', () => {
         // Act
         render(<App />)
         userEvent.click(getUserMenuItem('i18n-auth:login'))
@@ -56,7 +61,7 @@ describe('UserMenu', () => {
         expect(getUsername(username)).toBeInTheDocument()
       })
 
-      it('should not display username if user is logged out', async () => {
+      it('should not display username once user logged out', async () => {
         // Arrange
         const queryMock = jest.spyOn(axios, 'post').mockResolvedValue(undefined)
         const queryPath = expect.stringContaining('logout')
@@ -84,13 +89,36 @@ describe('UserMenu', () => {
       expect(getDarkModeSwitch()).not.toBeChecked()
     })
 
-    it('should change to dark mode on switch click', () => {
+    it('should change to dark mode on switch toggle', () => {
       // Act
       render(<UserMenu />, { preloadedState: initialState })
       userEvent.click(getDarkModeSwitch())
 
       // Assert
       expect(getDarkModeSwitch()).toBeChecked()
+    })
+  })
+
+  describe('Language', () => {
+    it('should be i18n selected language by default', () => {
+      // Act
+      render(<UserMenu />)
+
+      // Assert
+      expect(getLanguageSelect().textContent).toContain('English')
+      expect(screen.getByLabelText('i18n-darkMode')).toBeInTheDocument()
+    })
+
+    it('should change to French when fr-FR option is selected', () => {
+      // Act
+      render(<UserMenu />)
+
+      userEvent.click(getLanguageSelect())
+      userEvent.click(screen.getByTestId('language-option-fr-FR'))
+
+      // Assert
+      expect(getLanguageSelect().textContent).toContain('Français')
+      expect(screen.getByLabelText('i18n-darkMode-fr-FR')).toBeInTheDocument()
     })
   })
 })

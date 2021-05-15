@@ -13,10 +13,18 @@ interface CustomRenderOptions {
   renderOptions?: Omit<RenderOptions, 'queries'>
 }
 
+export const mockChangeLanguage = jest.fn()
+
+let mockSelectedLanguage = 'en-US'
+
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: (key: string, options: any) => {
       let result = `i18n-${key}`
+
+      if (mockSelectedLanguage !== 'en-US') {
+        result += `-${mockSelectedLanguage}`
+      }
 
       if (options) {
         result += `-${JSON.stringify(options)}`
@@ -25,8 +33,8 @@ jest.mock('react-i18next', () => ({
       return result
     },
     i18n: {
-      language: 'en-US',
-      changeLanguage: jest.fn(),
+      language: mockSelectedLanguage,
+      changeLanguage: (lang: string) => (mockSelectedLanguage = lang),
     },
   }),
 }))

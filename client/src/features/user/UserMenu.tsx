@@ -101,7 +101,7 @@ export function UserMenu() {
             {t('auth:login')}
           </MenuItem>
         )}
-        <MenuItem>
+        <MenuItem data-testid="user-menu-item-language">
           <FormControl fullWidth>
             <InputLabel id="preferred-language">{t('language')}</InputLabel>
             <Select
@@ -109,8 +109,12 @@ export function UserMenu() {
               value={language}
               onChange={handleLanguageChange}
             >
-              <MenuItem value={'en-US'}>English</MenuItem>
-              <MenuItem value={'fr-FR'}>Français</MenuItem>
+              <MenuItem value={'en-US'} data-testid="language-option-en-US">
+                English
+              </MenuItem>
+              <MenuItem value={'fr-FR'} data-testid="language-option-fr-FR">
+                Français
+              </MenuItem>
             </Select>
           </FormControl>
         </MenuItem>
