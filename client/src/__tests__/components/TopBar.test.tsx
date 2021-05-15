@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event'
-import { render, screen } from '../utils/test-utils'
-import { App } from '../app'
+import { render, screen } from '../../utils/test-utils'
+import { App } from '../../app'
 
 describe('TopBar', () => {
   it('should go to Home page on title click', () => {

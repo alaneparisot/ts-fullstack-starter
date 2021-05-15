@@ -7,9 +7,9 @@ import {
   render,
   screen,
   within,
-} from '../../utils/test-utils'
-import { App } from '../../app'
-import { UserMenu } from './UserMenu'
+} from '../../../utils/test-utils'
+import { App } from '../../../app'
+import { UserMenu } from '../../../features/user/UserMenu'
 
 function getDarkModeSwitch() {
   return screen.getByLabelText('i18n-darkMode')

@@ -1,6 +1,6 @@
 import produce from 'immer'
-import { initialState, render, screen } from '../../utils/test-utils'
-import { Home } from './Home'
+import { initialState, render, screen } from '../../../utils/test-utils'
+import { Home } from '../../../features/home/Home'
 
 describe('Home', () => {
   it('should display simple welcome message if user is not connected', () => {

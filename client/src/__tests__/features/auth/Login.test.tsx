@@ -1,7 +1,7 @@
 import userEvent from '@testing-library/user-event'
 import axios from 'axios'
-import { act, render, screen, within } from '../../utils/test-utils'
-import { Login } from './Login'
+import { act, render, screen, within } from '../../../utils/test-utils'
+import { Login } from '../../../features/auth/Login'
 
 function getFormField(fieldName: string) {
   return screen.getByTestId(`form-field-${fieldName}`)
