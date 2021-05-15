@@ -117,8 +117,8 @@ export function UserMenu() {
         <MenuItem>
           <FormGroup>
             <FormControlLabel
-              control={<Switch checked={!!userPreferences.prefersDarkMode} />}
               label={t('darkMode')}
+              control={<Switch checked={!!userPreferences.prefersDarkMode} />}
               onChange={handleDarkModeChange}
             />
           </FormGroup>

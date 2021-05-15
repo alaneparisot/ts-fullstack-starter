@@ -11,11 +11,15 @@ import {
 import { App } from '../../app'
 import { UserMenu } from './UserMenu'
 
-function getUserMenuItemEl(itemText: string) {
+function getDarkModeSwitch() {
+  return screen.getByLabelText('i18n-darkMode')
+}
+
+function getUserMenuItem(itemText: string) {
   return within(screen.getByTestId('user-menu')).getByText(itemText)
 }
 
-function getUsernameEl(usernameText: string) {
+function getUsername(usernameText: string) {
   return within(screen.getByTestId('username')).queryByText(usernameText)
 }
 
@@ -25,7 +29,7 @@ describe('UserMenu', () => {
       it('should switch to login page if login button is clicked', () => {
         // Act
         render(<App />)
-        userEvent.click(getUserMenuItemEl('i18n-auth:login'))
+        userEvent.click(getUserMenuItem('i18n-auth:login'))
 
         // Assert
         expect(screen.getByTestId('page-i18n-login')).toBeInTheDocument()
@@ -49,7 +53,7 @@ describe('UserMenu', () => {
         render(<UserMenu />, { preloadedState })
 
         // Assert
-        expect(getUsernameEl(username)).toBeInTheDocument()
+        expect(getUsername(username)).toBeInTheDocument()
       })
 
       it('should not display username if user is logged out', async () => {
@@ -61,13 +65,32 @@ describe('UserMenu', () => {
         render(<App />, { preloadedState })
 
         await act(async () => {
-          userEvent.click(getUserMenuItemEl('i18n-auth:logout'))
+          userEvent.click(getUserMenuItem('i18n-auth:logout'))
         })
 
         // Assert
         expect(queryMock).toHaveBeenCalledWith(queryPath)
-        expect(getUsernameEl(username)).not.toBeInTheDocument()
+        expect(getUsername(username)).not.toBeInTheDocument()
       })
+    })
+  })
+
+  describe('Dark Mode', () => {
+    it('should be light mode by default', () => {
+      // Act
+      render(<UserMenu />, { preloadedState: initialState })
+
+      // Assert
+      expect(getDarkModeSwitch()).not.toBeChecked()
+    })
+
+    it('should change to dark mode on switch click', () => {
+      // Act
+      render(<UserMenu />, { preloadedState: initialState })
+      userEvent.click(getDarkModeSwitch())
+
+      // Assert
+      expect(getDarkModeSwitch()).toBeChecked()
     })
   })
 })
