@@ -1,7 +1,6 @@
 import userEvent from '@testing-library/user-event'
 import axios from 'axios'
-import { act } from 'react-dom/test-utils'
-import { render, screen, within } from '../../utils/test-utils'
+import { act, render, screen, within } from '../../utils/test-utils'
 import { Login } from './Login'
 
 function getFormField(fieldName: string) {

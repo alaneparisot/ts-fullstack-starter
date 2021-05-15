@@ -9,6 +9,7 @@ import { initialState as userInitialState } from '../features/user'
 
 interface CustomRenderOptions {
   preloadedState?: DeepPartial<RootState>
+  route?: string
   store?: EnhancedStore
   renderOptions?: Omit<RenderOptions, 'queries'>
 }
@@ -33,8 +34,12 @@ jest.mock('react-i18next', () => ({
       return result
     },
     i18n: {
-      language: mockSelectedLanguage,
-      changeLanguage: (lang: string) => (mockSelectedLanguage = lang),
+      language: 'en-US',
+      changeLanguage: (lang: string) => {
+        if (lang) {
+          mockSelectedLanguage = lang
+        }
+      },
     },
   }),
 }))
@@ -43,13 +48,14 @@ const render = (
   ui: ReactElement,
   {
     preloadedState,
+    route = '/',
     store = configureStore({ reducer, preloadedState }),
     ...renderOptions
   }: CustomRenderOptions = {},
 ) => {
   const wrapper: FC = ({ children }) => (
     <Provider store={store}>
-      <MemoryRouter>{children}</MemoryRouter>
+      <MemoryRouter initialEntries={[route]}>{children}</MemoryRouter>
     </Provider>
   )
 

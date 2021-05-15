@@ -23,7 +23,12 @@ export function TopBar() {
   return (
     <AppBar position="static" color="transparent">
       <Toolbar>
-        <Typography variant="h6" component="h1" className={classes.title}>
+        <Typography
+          variant="h6"
+          component="h1"
+          className={classes.title}
+          data-testid="app-title"
+        >
           <StyledLink to="/" className={classes.link}>
             MERN TS Starter
           </StyledLink>
