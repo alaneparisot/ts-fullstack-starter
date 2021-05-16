@@ -50,9 +50,10 @@
 
 - [ ] ESLint
 - [ ] Authorization roles (admin, user)
-- [ ] Unit tests
+- [x] Unit tests (in progress)
 - [ ] End-to-end tests (Cypress)
-- [ ] Commit hooks (linter, tests)
+- [ ] Commit hooks (linter)
+- [x] Commit hooks (tests)
 - [ ] Handle error exception on client side
 - [ ] Handle logs on client side
 - [ ] Add analytics
