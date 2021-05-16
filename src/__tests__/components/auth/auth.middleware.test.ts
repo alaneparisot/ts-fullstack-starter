@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
-import { hasCredentials } from '../../../components/auth/auth.middleware'
+import { hasCredentials } from '../../../components/auth/auth.middlewares'
 
-describe('Auth Middleware', () => {
+describe('Auth Middlewares', () => {
   describe('hasCredentials', () => {
     it('should return a 400 status code if username is missing', () => {
       // Arrange

@@ -1,6 +1,6 @@
 import express from 'express'
-import { getMe } from './users.controller'
-import { isAuthorized } from '../auth/auth.middleware'
+import { getMe } from './users.controllers'
+import { isAuthorized } from '../auth/auth.middlewares'
 
 export const router = express.Router()
 

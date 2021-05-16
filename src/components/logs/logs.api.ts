@@ -1,7 +1,7 @@
 import express from 'express'
-import { getAll } from './logs.controller'
-import { authMiddleware } from '../auth'
+import { getAll } from './logs.controllers'
+import { authMiddlewares } from '../auth'
 
 export const router = express.Router()
 
-router.get('/', authMiddleware.isAuthorized, getAll)
+router.get('/', authMiddlewares.isAuthorized, getAll)

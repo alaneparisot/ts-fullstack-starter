@@ -1,6 +1,6 @@
 import express from 'express'
-import { csrfToken, login, logout, register } from './auth.controller'
-import { hasCredentials, isAuthorized } from './auth.middleware'
+import { csrfToken, login, logout, register } from './auth.controllers'
+import { hasCredentials, isAuthorized } from './auth.middlewares'
 
 export const router = express.Router()
 

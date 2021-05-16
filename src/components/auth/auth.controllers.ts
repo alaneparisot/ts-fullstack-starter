@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { COOKIE_OPTIONS } from './auth.constants'
-import { generateAccessToken } from './auth.service'
+import { generateAccessToken } from './auth.services'
 import { User } from '../users'
 
 export async function csrfToken(
