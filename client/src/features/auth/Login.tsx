@@ -138,22 +138,24 @@ export function Login() {
       {/* Notifications */}
 
       <Snackbar
-        open={openAlertError}
+        open={openAlertSuccess}
         autoHideDuration={APP_CONSTANTS.autoHideDuration}
-        onClose={() => handleCloseAlert('error')}
+        onClose={() => handleCloseAlert('success')}
+        data-testid="notification-success"
       >
-        <Alert onClose={() => handleCloseAlert('error')} severity="error">
-          {t('loginError')}
+        <Alert onClose={() => handleCloseAlert('success')} severity="success">
+          {t('loginSuccess')}
         </Alert>
       </Snackbar>
 
       <Snackbar
-        open={openAlertSuccess}
+        open={openAlertError}
         autoHideDuration={APP_CONSTANTS.autoHideDuration}
-        onClose={() => handleCloseAlert('success')}
+        onClose={() => handleCloseAlert('error')}
+        data-testid="notification-error"
       >
-        <Alert onClose={() => handleCloseAlert('success')} severity="success">
-          {t('loginSuccess')}
+        <Alert onClose={() => handleCloseAlert('error')} severity="error">
+          {t('loginError')}
         </Alert>
       </Snackbar>
     </Page>

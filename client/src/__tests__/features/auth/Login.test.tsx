@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event'
 import axios from 'axios'
-import { act, render, screen, within } from '../../../utils/test-utils'
+import { act, render, screen, waitFor, within } from '../../../utils/test-utils'
 import { Login } from '../../../features/auth/Login'
 
 function getFormField(fieldName: string) {
@@ -54,15 +54,15 @@ describe('Login', () => {
     const errorNotificationText = 'i18n-loginError'
     const successNotificationText = 'i18n-loginSuccess'
 
-    type TestParams = {
+    type TestNotificationOpeningParams = {
       loginShouldSucceed: boolean
       notificationText: string
     }
 
-    const testNotificationIsInTheDocument = async ({
+    const testNotificationOpening = async ({
       loginShouldSucceed,
       notificationText,
-    }: TestParams) => {
+    }: TestNotificationOpeningParams) => {
       // Arrange
       const username = 'johndoe'
       const password = '1234567'
@@ -88,6 +88,28 @@ describe('Login', () => {
       expect(screen.getByText(notificationText)).toBeInTheDocument()
     }
 
+    type TestNotificationClosingParams = {
+      notificationTestId: string
+      notificationText: string
+    }
+
+    const testNotificationClosing = async ({
+      notificationTestId,
+      notificationText,
+    }: TestNotificationClosingParams) => {
+      // Arrange
+      const notification = screen.getByTestId(notificationTestId)
+      const closeButton = within(notification).getByRole('button')
+
+      // Act
+      userEvent.click(closeButton)
+
+      // Assert
+      await waitFor(() => {
+        expect(screen.queryByText(notificationText)).not.toBeInTheDocument()
+      })
+    }
+
     it('should not display notifications if no submit is done', () => {
       // Arrange
       render(<Login />)
@@ -100,15 +122,25 @@ describe('Login', () => {
     })
 
     it('should display success notification if login succeed', async () => {
-      await testNotificationIsInTheDocument({
+      await testNotificationOpening({
         loginShouldSucceed: true,
+        notificationText: successNotificationText,
+      })
+
+      await testNotificationClosing({
+        notificationTestId: 'notification-success',
         notificationText: successNotificationText,
       })
     })
 
     it('should display error notification if login failed', async () => {
-      await testNotificationIsInTheDocument({
+      await testNotificationOpening({
         loginShouldSucceed: false,
+        notificationText: errorNotificationText,
+      })
+
+      await testNotificationClosing({
+        notificationTestId: 'notification-error',
         notificationText: errorNotificationText,
       })
     })
