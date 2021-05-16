@@ -8,7 +8,7 @@ interface IUserDocument extends Document {
   isPassword(password: string): Promise<boolean>
 }
 
-const userSchema = new Schema({
+const userSchema = new Schema<IUserDocument>({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true, select: false },
 })
