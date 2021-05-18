@@ -52,7 +52,7 @@
     "postinstall": "tsc --outDir dist",
     "prepare": "husky install",
     "start": "node dist/index.js",
-    "test": "jest && set SKIP_PREFLIGHT_CHECK=true&&yarn --cwd client test --watchAll=false",
+    "test": "jest && yarn --cwd client test --watchAll=false",
     "test-client": "yarn --cwd client test",
     "test-server": "jest --watch",
     "watch-client": "yarn --cwd client start",

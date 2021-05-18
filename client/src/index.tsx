@@ -2,13 +2,14 @@ import Box from '@material-ui/core/Box'
 import { StrictMode, Suspense } from 'react'
 import { CookiesProvider } from 'react-cookie'
 import ReactDOM from 'react-dom'
+import { ErrorBoundary } from 'react-error-boundary'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import './i18n'
 import './index.css'
 import reportWebVitals from './reportWebVitals'
 import { App, store } from './app'
-import { Spinner } from './components'
+import { ErrorFallback, Spinner } from './components'
 
 const suspenseFallback = (
   <Box
@@ -23,15 +24,17 @@ const suspenseFallback = (
 
 ReactDOM.render(
   <StrictMode>
-    <CookiesProvider>
-      <Provider store={store}>
-        <Suspense fallback={suspenseFallback}>
-          <Router>
-            <App />
-          </Router>
-        </Suspense>
-      </Provider>
-    </CookiesProvider>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <CookiesProvider>
+        <Provider store={store}>
+          <Suspense fallback={suspenseFallback}>
+            <Router>
+              <App />
+            </Router>
+          </Suspense>
+        </Provider>
+      </CookiesProvider>
+    </ErrorBoundary>
   </StrictMode>,
   document.getElementById('root'),
 )
