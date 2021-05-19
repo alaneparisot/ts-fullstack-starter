@@ -58,7 +58,7 @@
 - [ ] Handle logs on client side (+ in <ErrorBoundary />)
 - [ ] Add analytics
 - [ ] Add Storybook
-- [ ] Move to PostgreSQL (+Type ORM)
+- [ ] Move to PostgreSQL (+Type ORM) ⚠️ Not MERN
 - [ ] Use Redis
 - [ ] Move to GraphQL
 - [ ] Run things on CI (test before deploy)

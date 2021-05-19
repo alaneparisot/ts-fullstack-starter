@@ -8,7 +8,13 @@ export async function getMe(
   next: NextFunction,
 ) {
   try {
-    res.status(200).json({ user: await User.findById(req.userId) })
+    const user = await User.findById(req.userId)
+
+    if (user) {
+      res.status(200).json({ user })
+    } else {
+      res.sendStatus(404)
+    }
   } catch (error) {
     next(error)
   }
