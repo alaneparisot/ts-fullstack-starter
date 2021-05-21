@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { hasCredentials } from '../../../components/auth/auth.middlewares'
 
-describe('Auth Middlewares', () => {
+describe('auth.middlewares', () => {
   describe('hasCredentials', () => {
     type TestHasCredentialsParams = {
       reqBody: {

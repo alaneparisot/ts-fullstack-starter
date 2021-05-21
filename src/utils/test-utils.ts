@@ -10,6 +10,7 @@ export function mockDatabase() {
     const mongoUri = await mongoServer.getUri()
 
     const opts: ConnectOptions = {
+      useCreateIndex: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,
     }
