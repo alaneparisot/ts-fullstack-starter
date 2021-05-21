@@ -20,14 +20,14 @@ export function isAuthorized(
   res: Response,
   next: NextFunction,
 ) {
-  const accessToken: string = req.cookies && req.cookies.accessToken
+  const accessToken: string = req.cookies?.accessToken
 
-  if (!accessToken) return res.status(403).end() // Forbidden
+  if (!accessToken) return res.sendStatus(403) // Forbidden
 
   const secret = config.auth.accessTokenSecret
 
   jwt.verify(accessToken, secret, (err, decoded) => {
-    if (err) return res.status(403).end() // Forbidden
+    if (err) return res.sendStatus(403) // Forbidden
 
     req.userId = (<any>decoded).userId
 

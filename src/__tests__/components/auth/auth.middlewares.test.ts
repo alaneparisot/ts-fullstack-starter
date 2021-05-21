@@ -1,5 +1,18 @@
 import { NextFunction, Request, Response } from 'express'
-import { hasCredentials } from '../../../components/auth/auth.middlewares'
+import {
+  hasCredentials,
+  isAuthorized,
+} from '../../../components/auth/auth.middlewares'
+import { generateAccessToken } from '../../../components/auth/auth.services'
+import { testUtils } from '../../../utils'
+
+jest.mock('../../../config', () => ({
+  auth: {
+    accessTokenSecret: 'secret',
+    tokenExpireTime: 60,
+  },
+  node: {},
+}))
 
 describe('auth.middlewares', () => {
   describe('hasCredentials', () => {
@@ -41,7 +54,7 @@ describe('auth.middlewares', () => {
         : expect(mockNext).not.toHaveBeenCalled()
     }
 
-    it('should send a 400 status code if all credentials are missing', () => {
+    it('should respond with 400 error status if all credentials are missing', () => {
       testHasCredentials({
         reqBody: {},
         shouldSend400: true,
@@ -49,15 +62,15 @@ describe('auth.middlewares', () => {
       })
     })
 
-    it('should send a 400 status code if username is missing', () => {
+    it('should respond with 400 error status if username is missing', () => {
       testHasCredentials({
-        reqBody: { password: '1234567' },
+        reqBody: { password: 'secret' },
         shouldSend400: true,
         shouldCallNext: false,
       })
     })
 
-    it('should send a 400 status code if password is missing', () => {
+    it('should respond with 400 error status if password is missing', () => {
       testHasCredentials({
         reqBody: { username: 'johndoe' },
         shouldSend400: true,
@@ -67,10 +80,62 @@ describe('auth.middlewares', () => {
 
     it('should call the next function if all credentials are filled', () => {
       testHasCredentials({
-        reqBody: { username: 'johndoe', password: '1234567' },
+        reqBody: { username: 'johndoe', password: 'secret' },
         shouldSend400: false,
         shouldCallNext: true,
       })
+    })
+  })
+
+  describe('isAuthorized', () => {
+    let mockRes: Response
+    let mockNext: NextFunction
+
+    beforeEach(() => {
+      mockRes = testUtils.mockResponse()
+      mockNext = testUtils.mockNextFunction()
+    })
+
+    it('should respond with 403 error status if access token is missing', () => {
+      // Arrange
+      const mockUserReq = testUtils.mockUserRequest()
+
+      // Act
+      isAuthorized(mockUserReq, mockRes, mockNext)
+
+      // Assert
+      expect(mockRes.sendStatus).toHaveBeenCalledWith(403)
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('should respond with 403 error status if access token is invalid', () => {
+      // Arrange
+      const accessToken = 'invalid-token'
+      const cookies = { accessToken }
+
+      const mockUserReq = testUtils.mockUserRequest('', cookies)
+
+      // Act
+      isAuthorized(mockUserReq, mockRes, mockNext)
+
+      // Assert
+      expect(mockRes.sendStatus).toHaveBeenCalledWith(403)
+      expect(mockNext).not.toHaveBeenCalled()
+    })
+
+    it('should call the next function if access token is valid', async () => {
+      // Arrange
+      const accessToken = await generateAccessToken('johndoe')
+      const cookies = { accessToken }
+
+      const mockUserReq = testUtils.mockUserRequest('', cookies)
+
+      // Act
+      isAuthorized(mockUserReq, mockRes, mockNext)
+
+      // Assert
+      expect(mockNext).toHaveBeenCalled()
+      expect(mockRes.sendStatus).not.toHaveBeenCalled()
     })
   })
 })

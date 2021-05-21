@@ -65,7 +65,7 @@ describe('Login', () => {
     }: TestNotificationOpeningParams) => {
       // Arrange
       const username = 'johndoe'
-      const password = '1234567'
+      const password = 'secret'
       const queryPath = expect.stringContaining('login')
       const queryData = { username, password }
 

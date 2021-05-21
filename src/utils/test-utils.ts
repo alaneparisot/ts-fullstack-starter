@@ -53,6 +53,12 @@ export function mockResponse(): Response {
   return res
 }
 
-export function mockUserRequest(userId?: string): IUserRequest {
-  return { userId: userId ?? '60a56c5483c82d0cf0f7cc75' } as IUserRequest
+export function mockUserRequest(
+  userId?: string,
+  cookies?: object,
+): IUserRequest {
+  return {
+    userId: userId ?? '60a56c5483c82d0cf0f7cc75',
+    cookies,
+  } as IUserRequest
 }

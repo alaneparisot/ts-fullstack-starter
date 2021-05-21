@@ -9,14 +9,14 @@ afterAll(async () => await mockDB.close())
 
 describe('users.controllers', () => {
   describe('getMe', () => {
-    it('should respond with 404 error since user does not exist', async () => {
+    it('should respond with 404 error status if user does not exist', async () => {
       // Arrange
-      const mockReq = testUtils.mockUserRequest()
+      const mockUserReq = testUtils.mockUserRequest()
       const mockRes = testUtils.mockResponse()
       const mockNext = testUtils.mockNextFunction()
 
       // Act
-      await usersControllers.getMe(mockReq, mockRes, mockNext)
+      await usersControllers.getMe(mockUserReq, mockRes, mockNext)
 
       // Assert
       expect(mockRes.sendStatus).toHaveBeenCalledWith(404)
@@ -29,12 +29,12 @@ describe('users.controllers', () => {
       await User.create({ username, password: 'secret' })
       const user = await User.findOne({ username })
 
-      const mockReq = testUtils.mockUserRequest(user._id)
+      const mockUserReq = testUtils.mockUserRequest(user._id)
       const mockRes = testUtils.mockResponse()
       const mockNext = testUtils.mockNextFunction()
 
       // Act
-      await usersControllers.getMe(mockReq, mockRes, mockNext)
+      await usersControllers.getMe(mockUserReq, mockRes, mockNext)
 
       // Assert
       expect(mockRes.status).toHaveBeenCalledWith(200)
