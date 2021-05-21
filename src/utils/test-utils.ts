@@ -1,5 +1,42 @@
-import { NextFunction, Request, Response } from 'express'
+import { NextFunction, Response } from 'express'
+import { MongoMemoryServer } from 'mongodb-memory-server'
+import mongoose, { ConnectOptions } from 'mongoose'
 import { IUserRequest } from '../types'
+
+export function mockDatabase() {
+  let mongoServer = new MongoMemoryServer()
+
+  const connect = async () => {
+    const mongoUri = await mongoServer.getUri()
+
+    const opts: ConnectOptions = {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+
+    await mongoose.connect(mongoUri, opts, (err) => {
+      if (err) console.error(err)
+    })
+  }
+
+  const clear = async () => {
+    const collections = mongoose.connection.collections
+
+    for (const key in collections) {
+      const collection = collections[key]
+      await collection.deleteMany({})
+    }
+  }
+
+  const close = async () => {
+    await mongoose.connection.dropDatabase()
+    await mongoose.connection.close()
+    await mongoose.disconnect()
+    await mongoServer.stop()
+  }
+
+  return { connect, clear, close }
+}
 
 export function mockNextFunction(): NextFunction {
   return jest.fn()

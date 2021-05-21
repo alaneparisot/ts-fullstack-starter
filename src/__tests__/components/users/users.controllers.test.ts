@@ -1,30 +1,11 @@
-import { MongoMemoryServer } from 'mongodb-memory-server'
-import mongoose, { ConnectOptions } from 'mongoose'
 import { User, usersControllers } from '../../../components/users'
 import { testUtils } from '../../../utils'
 
-// May require additional time for downloading MongoDB binaries
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
+const mockDB = testUtils.mockDatabase()
 
-let mongoServer: MongoMemoryServer
-
-const opts: ConnectOptions = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}
-
-beforeAll(async () => {
-  mongoServer = new MongoMemoryServer()
-  const mongoUri = await mongoServer.getUri()
-  await mongoose.connect(mongoUri, opts, (err) => {
-    if (err) console.error(err)
-  })
-})
-
-afterAll(async () => {
-  await mongoose.disconnect()
-  await mongoServer.stop()
-})
+beforeAll(async () => await mockDB.connect())
+afterEach(async () => await mockDB.clear())
+afterAll(async () => await mockDB.close())
 
 describe('Users Controllers', () => {
   it('should respond with 404 error since user does not exist', async () => {
