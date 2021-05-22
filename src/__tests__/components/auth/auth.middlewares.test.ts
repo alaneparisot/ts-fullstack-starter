@@ -6,14 +6,6 @@ import {
 import { generateAccessToken } from '../../../components/auth/auth.services'
 import { testUtils } from '../../../utils'
 
-jest.mock('../../../config', () => ({
-  auth: {
-    accessTokenSecret: 'secret',
-    tokenExpireTime: 60,
-  },
-  node: {},
-}))
-
 describe('auth.middlewares', () => {
   describe('hasCredentials', () => {
     type TestHasCredentialsParams = {
