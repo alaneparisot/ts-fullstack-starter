@@ -23,15 +23,8 @@ describe('auth.middlewares', () => {
       shouldSend400,
     }: TestHasCredentialsParams) => {
       // Arrange
-      const mockReq = {
-        body: reqBody,
-      } as Request
-
-      const mockRes = {
-        sendStatus: jest.fn(),
-      } as unknown as Response
-
-      const mockNext = jest.fn() as NextFunction
+      const mockReq = testUtils.mockRequest({ body: reqBody })
+      const { mockRes, mockNext } = testUtils.mockReqResNext()
 
       // Act
       hasCredentials(mockReq, mockRes, mockNext)

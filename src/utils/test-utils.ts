@@ -1,7 +1,9 @@
-import { NextFunction, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import { MongoMemoryServer } from 'mongodb-memory-server'
 import mongoose, { ConnectOptions } from 'mongoose'
 import { IUserRequest } from '../types'
+
+// Database
 
 export function mockDatabase() {
   let mongoServer = new MongoMemoryServer()
@@ -39,8 +41,28 @@ export function mockDatabase() {
   return { connect, clear, close }
 }
 
-export function mockNextFunction(): NextFunction {
-  return jest.fn()
+// Middlewares
+
+export function mockReqResNext() {
+  return {
+    mockReq: mockRequest(),
+    mockRes: mockResponse(),
+    mockNext: mockNextFunction(),
+  }
+}
+
+export function mockRequest(params?: object): Request {
+  return { ...params } as Request
+}
+
+export function mockUserRequest(
+  userId?: string,
+  cookies?: object,
+): IUserRequest {
+  return {
+    userId: userId ?? '60a56c5483c82d0cf0f7cc75',
+    cookies,
+  } as IUserRequest
 }
 
 export function mockResponse(): Response {
@@ -53,12 +75,6 @@ export function mockResponse(): Response {
   return res
 }
 
-export function mockUserRequest(
-  userId?: string,
-  cookies?: object,
-): IUserRequest {
-  return {
-    userId: userId ?? '60a56c5483c82d0cf0f7cc75',
-    cookies,
-  } as IUserRequest
+export function mockNextFunction(): NextFunction {
+  return jest.fn()
 }

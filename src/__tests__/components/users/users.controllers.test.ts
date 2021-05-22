@@ -12,8 +12,7 @@ describe('users.controllers', () => {
     it('should respond with 404 error status if user does not exist', async () => {
       // Arrange
       const mockUserReq = testUtils.mockUserRequest()
-      const mockRes = testUtils.mockResponse()
-      const mockNext = testUtils.mockNextFunction()
+      const { mockRes, mockNext } = testUtils.mockReqResNext()
 
       // Act
       await usersControllers.getMe(mockUserReq, mockRes, mockNext)
@@ -30,8 +29,7 @@ describe('users.controllers', () => {
       const user = await User.findOne({ username })
 
       const mockUserReq = testUtils.mockUserRequest(user._id)
-      const mockRes = testUtils.mockResponse()
-      const mockNext = testUtils.mockNextFunction()
+      const { mockRes, mockNext } = testUtils.mockReqResNext()
 
       // Act
       await usersControllers.getMe(mockUserReq, mockRes, mockNext)
