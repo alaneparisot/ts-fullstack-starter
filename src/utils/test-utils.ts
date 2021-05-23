@@ -73,6 +73,7 @@ export function mockUserRequest(
 export function mockResponse(): Response {
   const res: any = {}
 
+  res.clearCookie = jest.fn()
   res.cookie = jest.fn()
   res.json = jest.fn()
   res.sendStatus = jest.fn()

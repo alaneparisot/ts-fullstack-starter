@@ -68,3 +68,6 @@
 - [ ] Move to GraphQL
 - [ ] Run things on CI (test before deploy)
 - [ ] Record a video tutorial
+- [ ] Improve login: check user extracted from token exists in database
+- [ ] Improve logout: invalid access token on backend side
+- [ ] Validate username and password on register, on server-side
