@@ -1,8 +1,6 @@
 # MERN TS Starter
 
-## Demo
-
-[mern-ts-starter](https://mern-ts-starter.herokuapp.com/)
+### [Demo](https://mern-ts-starter.herokuapp.com/)
 
 ## How to Fork
 
