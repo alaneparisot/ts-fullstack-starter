@@ -18,6 +18,6 @@ export function init(app: Application) {
   app.use((error: Error, _req: Request, res: Response, _next: NextFunction) => {
     const metadata = { middleware: true }
     logger.error(error && error.message, { metadata })
-    res.status(500).end()
+    res.sendStatus(500)
   })
 }

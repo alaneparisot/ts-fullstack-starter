@@ -22,14 +22,14 @@ export async function login(req: Request, res: Response, next: NextFunction) {
     const user = await User.findOne({ username }).select('+password')
 
     if (!user || !(await user.isPassword(password))) {
-      return res.status(401).end()
+      return res.sendStatus(401)
     }
 
     const accessToken = await generateAccessToken(user._id)
 
     res.cookie('accessToken', accessToken, COOKIE_OPTIONS)
 
-    res.status(200).end()
+    res.sendStatus(200)
   } catch (error) {
     next(error)
   }

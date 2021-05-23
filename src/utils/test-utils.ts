@@ -3,6 +3,11 @@ import { MongoMemoryServer } from 'mongodb-memory-server'
 import mongoose, { ConnectOptions } from 'mongoose'
 import { IUserRequest } from '../types'
 
+// Jest Setup
+
+process.env.AUTH_ACCESS_TOKEN_SECRET = 'secret'
+process.env.AUTH_TOKEN_EXPIRE_TIME = '60'
+
 // Database
 
 export function mockDatabase() {
@@ -68,6 +73,7 @@ export function mockUserRequest(
 export function mockResponse(): Response {
   const res: any = {}
 
+  res.cookie = jest.fn()
   res.json = jest.fn()
   res.sendStatus = jest.fn()
   res.status = jest.fn().mockReturnValue(res)
@@ -76,5 +82,7 @@ export function mockResponse(): Response {
 }
 
 export function mockNextFunction(): NextFunction {
-  return jest.fn()
+  return jest.fn().mockImplementation((...args: any) => {
+    if (args[0] instanceof Error) console.error(args[0])
+  })
 }

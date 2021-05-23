@@ -32,8 +32,9 @@
 - Write `set INLINE_RUNTIME_CHUNK=false&&react-scripts build` for Windows
 - Set `proxy` value (port should match default value in src > config > index.ts)
 
-### src > **tests**
+### src > tests
 
+- Global environment variables are defined in src > utils > test-utils.ts
 - You may need to add `jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000` to be able to download MongoDB binaries
 
 ### src > config > index.ts

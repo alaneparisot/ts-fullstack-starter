@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express'
+import { NextFunction, Response } from 'express'
 import {
   hasCredentials,
   isAuthorized,
@@ -77,6 +77,7 @@ describe('auth.middlewares', () => {
     let mockNext: NextFunction
 
     beforeEach(() => {
+      process.env.AUTH_ACCESS_TOKEN_SECRET = 'secret'
       mockRes = testUtils.mockResponse()
       mockNext = testUtils.mockNextFunction()
     })

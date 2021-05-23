@@ -26,7 +26,7 @@ describe('users.controllers', () => {
       const username = 'johndoe'
 
       await User.create({ username, password: 'secret' })
-      const user = await User.findOne({ username })
+      const user = await User.findOne({ username }) // Returns user w/o password
 
       const mockUserReq = testUtils.mockUserRequest(user._id)
       const { mockRes, mockNext } = testUtils.mockReqResNext()

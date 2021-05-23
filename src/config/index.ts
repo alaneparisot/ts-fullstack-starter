@@ -1,10 +1,12 @@
 import dotenv from 'dotenv'
 import { Secret } from 'jsonwebtoken'
 
-const { error } = dotenv.config()
+if (process.env.NODE_ENV !== 'test') {
+  const { error } = dotenv.config()
 
-if (error && process.env.NODE_ENV !== 'production') {
-  throw new Error('Unable to find .env file.')
+  if (error && process.env.NODE_ENV !== 'production') {
+    throw new Error('Unable to find .env file.')
+  }
 }
 
 export default {
