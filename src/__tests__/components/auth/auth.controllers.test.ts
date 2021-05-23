@@ -62,7 +62,10 @@ describe('auth.controllers', () => {
       const username = 'johndoe'
       const password = 'secret'
       const token = 'access-token'
-      const cookieOptions = { maxAge: 60000, httpOnly: true }
+      const cookieOptions = {
+        maxAge: 60000, // Set in test-utils.ts
+        httpOnly: true,
+      }
 
       const user = await User.create({ username, password })
 
