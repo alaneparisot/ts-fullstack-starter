@@ -1,9 +1,9 @@
 import { NextFunction, Response } from 'express'
+import { authServices } from '../../../components/auth'
 import {
   hasCredentials,
   isAuthorized,
 } from '../../../components/auth/auth.middlewares'
-import { generateAccessToken } from '../../../components/auth/auth.services'
 import { testUtils } from '../../../utils'
 
 describe('auth.middlewares', () => {
@@ -111,7 +111,7 @@ describe('auth.middlewares', () => {
 
     it('should call the next function if access token is valid', async () => {
       // Arrange
-      const accessToken = await generateAccessToken('johndoe')
+      const accessToken = await authServices.generateAccessToken('johndoe')
       const cookies = { accessToken }
 
       const mockUserReq = testUtils.mockUserRequest('', cookies)

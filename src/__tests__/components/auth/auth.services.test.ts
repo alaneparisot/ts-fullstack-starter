@@ -3,12 +3,12 @@ import { generateAccessToken } from '../../../components/auth/auth.services'
 
 describe('auth.services', () => {
   describe('generateAccessToken', () => {
-    it('should return a generated access token', async () => {
+    it('should return a valid access token', async () => {
       // Arrange
       const username = 'johndoe'
       const secret = 'secret' // Set in test-utils.ts
 
-      const spy = jest.spyOn(jwt, 'sign')
+      const spySign = jest.spyOn(jwt, 'sign')
 
       // Act
       const token = await generateAccessToken(username)
@@ -19,7 +19,7 @@ describe('auth.services', () => {
       const options = { expiresIn: 60 } // Set in test-utils.ts
       const callback = expect.any(Function)
 
-      expect(spy).toHaveBeenCalledWith(payload, secret, options, callback)
+      expect(spySign).toHaveBeenCalledWith(payload, secret, options, callback)
       expect(userId).toBe(username)
     })
   })

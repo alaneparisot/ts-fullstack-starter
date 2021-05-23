@@ -1,4 +1,5 @@
-import { User, usersControllers } from '../../../components/users'
+import { User } from '../../../components/users'
+import { getMe } from '../../../components/users/users.controllers'
 import { testUtils } from '../../../utils'
 
 const mockDB = testUtils.mockDatabase()
@@ -15,7 +16,7 @@ describe('users.controllers', () => {
       const { mockRes, mockNext } = testUtils.mockReqResNext()
 
       // Act
-      await usersControllers.getMe(mockUserReq, mockRes, mockNext)
+      await getMe(mockUserReq, mockRes, mockNext)
 
       // Assert
       expect(mockRes.sendStatus).toHaveBeenCalledWith(404)
@@ -32,7 +33,7 @@ describe('users.controllers', () => {
       const { mockRes, mockNext } = testUtils.mockReqResNext()
 
       // Act
-      await usersControllers.getMe(mockUserReq, mockRes, mockNext)
+      await getMe(mockUserReq, mockRes, mockNext)
 
       // Assert
       expect(mockRes.status).toHaveBeenCalledWith(200)
