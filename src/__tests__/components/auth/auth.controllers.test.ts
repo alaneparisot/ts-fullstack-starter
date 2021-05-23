@@ -38,7 +38,6 @@ describe('auth.controllers', () => {
 
       // Assert
       expect(mockRes.sendStatus).toHaveBeenCalledWith(401)
-      expect(mockRes.sendStatus).not.toHaveBeenCalledWith(200)
     })
 
     it('should respond with 401 error status if password is incorrect', async () => {
@@ -56,7 +55,6 @@ describe('auth.controllers', () => {
 
       // Assert
       expect(mockRes.sendStatus).toHaveBeenCalledWith(401)
-      expect(mockRes.sendStatus).not.toHaveBeenCalledWith(200)
     })
 
     it('should set cookie with access token if credentials are correct', async () => {
@@ -123,7 +121,6 @@ describe('auth.controllers', () => {
 
       // Assert
       expect(mockRes.sendStatus).toHaveBeenCalledWith(409)
-      expect(mockRes.sendStatus).not.toHaveBeenCalledWith(201)
     })
 
     it('should create user in database if user does not already exists', async () => {
@@ -145,7 +142,6 @@ describe('auth.controllers', () => {
 
       expect(user.username).toBe(username)
       expect(mockRes.sendStatus).toHaveBeenCalledWith(201)
-      expect(mockRes.sendStatus).not.toHaveBeenCalledWith(409)
     })
   })
 })
