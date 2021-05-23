@@ -1,12 +1,21 @@
 import { NextFunction, Request, Response } from 'express'
-import { MongoMemoryServer } from 'mongodb-memory-server'
 import mongoose, { ConnectOptions } from 'mongoose'
 import { IUserRequest } from '../types'
 
+let MongoMemoryServer: any
+
 // Jest Setup
 
-process.env.AUTH_ACCESS_TOKEN_SECRET = 'secret'
-process.env.AUTH_TOKEN_EXPIRE_TIME = '60'
+if (process.env.NODE_ENV === 'test') {
+  /**
+   * Purpose: to avoid error "Cannot find module 'mongodb-memory-server'"
+   * without having to install mongodb-memory-server in production.
+   */
+  MongoMemoryServer = require('mongodb-memory-server').MongoMemoryServer
+
+  process.env.AUTH_ACCESS_TOKEN_SECRET = 'secret'
+  process.env.AUTH_TOKEN_EXPIRE_TIME = '60'
+}
 
 // Database
 
