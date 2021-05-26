@@ -69,3 +69,4 @@
 - [ ] Improve login: check user extracted from token exists in database
 - [ ] Improve logout: invalid access token on backend side
 - [ ] Validate username and password on register, on server-side
+- [ ] Add lazy-loading on client side
