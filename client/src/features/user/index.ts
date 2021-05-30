@@ -1,8 +1,4 @@
 export * from './UserMenu'
-export * from './userSlice'
 
-export interface User {
-  _id: string
-  username: string
-  token: string
-}
+export * from './user.slice'
+export * from './user.types'

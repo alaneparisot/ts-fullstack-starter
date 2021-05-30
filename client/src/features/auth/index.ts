@@ -1,9 +1,5 @@
 export * from './Login'
-export * from './authSlice'
 
-export const ACCESS_TOKEN_COOKIE = 'accessToken'
-
-export interface Credentials {
-  username: string
-  password: string
-}
+export * from './auth.constants'
+export * from './auth.slice'
+export * from './auth.types'
