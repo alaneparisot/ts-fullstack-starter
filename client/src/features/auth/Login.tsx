@@ -13,7 +13,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { Credentials, login, selectLoginStatus } from '../auth'
 import { AUTO_HIDE_DURATION } from '../../app'
-import { Page } from '../../components'
+import { Page, ProcessButton } from '../../components'
 
 export function Login() {
   const dispatch = useDispatch()
@@ -121,14 +121,12 @@ export function Login() {
           <Grid item>
             <Grid container justify="flex-end">
               <Grid item>
-                <Button
+                <ProcessButton
                   type="submit"
-                  variant="contained"
-                  color="primary"
-                  data-testid="form-submit"
-                >
-                  {t('login')}
-                </Button>
+                  label={t('login')}
+                  status={loginStatus}
+                  testId="form-submit"
+                />
               </Grid>
             </Grid>
           </Grid>

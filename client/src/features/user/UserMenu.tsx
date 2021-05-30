@@ -76,7 +76,7 @@ export function UserMenu() {
     horizontal: 'right',
   }
 
-  return fetchCurrentUserStatus === 'pending' ? (
+  return fetchCurrentUserStatus === 'started' ? (
     <Spinner />
   ) : (
     <>

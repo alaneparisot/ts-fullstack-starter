@@ -1,1 +1,6 @@
-export type AsyncRequestStatus = 'idle' | 'pending' | 'succeeded' | 'failed'
+export type ProcessStatus =
+  | 'idle'
+  | 'started'
+  | 'cancelled'
+  | 'succeeded'
+  | 'failed'

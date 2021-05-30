@@ -3,12 +3,12 @@ import axios from 'axios'
 
 import { Credentials } from '.'
 import { AppThunk, RootState } from '../../app'
-import { AsyncRequestStatus } from '../../types'
+import { ProcessStatus } from '../../types'
 
 interface AuthState {
-  fetchCsrfTokenStatus: AsyncRequestStatus
-  loginStatus: AsyncRequestStatus
-  logoutStatus: AsyncRequestStatus
+  fetchCsrfTokenStatus: ProcessStatus
+  loginStatus: ProcessStatus
+  logoutStatus: ProcessStatus
 }
 
 export const initialState: AuthState = {
@@ -49,7 +49,7 @@ const authApiUrl = '/api/auth'
 
 export const fetchCsrfToken = (): AppThunk => async (dispatch) => {
   try {
-    dispatch(setFetchCsrfTokenStatus('pending'))
+    dispatch(setFetchCsrfTokenStatus('started'))
 
     const url = `${authApiUrl}/csrf-token`
     const res = await axios.get(url)
@@ -73,7 +73,7 @@ export const login =
   async (dispatch) => {
     try {
       const url = `${authApiUrl}/login`
-      dispatch(setLoginStatus('pending'))
+      dispatch(setLoginStatus('started'))
       await axios.post(url, credentials)
       dispatch(setLoginStatus('succeeded'))
     } catch (err) {
@@ -86,7 +86,7 @@ export const login =
 export const logout = (): AppThunk => async (dispatch) => {
   try {
     const url = `${authApiUrl}/logout`
-    dispatch(setLogoutStatus('pending'))
+    dispatch(setLogoutStatus('started'))
     await axios.post(url)
     dispatch(setLogoutStatus('succeeded'))
   } catch (err) {

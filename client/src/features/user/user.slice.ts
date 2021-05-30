@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { User } from '.'
 import { AppThunk, RootState } from '../../app'
-import { AsyncRequestStatus } from '../../types'
+import { ProcessStatus } from '../../types'
 
 interface UserPreferences {
   prefersDarkMode: boolean
@@ -11,7 +11,7 @@ interface UserPreferences {
 
 interface UserState {
   currentUser: User | null
-  fetchCurrentUserStatus: AsyncRequestStatus
+  fetchCurrentUserStatus: ProcessStatus
   preferences: UserPreferences
 }
 
@@ -62,7 +62,7 @@ const userApiUrl = '/api/users'
 
 export const fetchCurrentUser = (): AppThunk => async (dispatch) => {
   try {
-    dispatch(setFetchCurrentUserStatus('pending'))
+    dispatch(setFetchCurrentUserStatus('started'))
 
     const url = `${userApiUrl}/me`
     const res = await axios.get(url)
