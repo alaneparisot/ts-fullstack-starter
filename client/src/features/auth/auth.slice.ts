@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
+
 import { Credentials } from '.'
 import { AppThunk, RootState } from '../../app'
 import { AsyncRequestStatus } from '../../types'
@@ -41,11 +42,8 @@ export const authSlice = createSlice({
   },
 })
 
-export const {
-  setFetchCsrfTokenStatus,
-  setLoginStatus,
-  setLogoutStatus,
-} = authSlice.actions
+export const { setFetchCsrfTokenStatus, setLoginStatus, setLogoutStatus } =
+  authSlice.actions
 
 const authApiUrl = '/api/auth'
 
@@ -70,20 +68,20 @@ export const fetchCsrfToken = (): AppThunk => async (dispatch) => {
   }
 }
 
-export const login = (credentials: Credentials): AppThunk => async (
-  dispatch,
-) => {
-  try {
-    const url = `${authApiUrl}/login`
-    dispatch(setLoginStatus('pending'))
-    await axios.post(url, credentials)
-    dispatch(setLoginStatus('succeeded'))
-  } catch (err) {
-    dispatch(setLoginStatus('failed'))
-  } finally {
-    dispatch(setLoginStatus('idle'))
+export const login =
+  (credentials: Credentials): AppThunk =>
+  async (dispatch) => {
+    try {
+      const url = `${authApiUrl}/login`
+      dispatch(setLoginStatus('pending'))
+      await axios.post(url, credentials)
+      dispatch(setLoginStatus('succeeded'))
+    } catch (err) {
+      dispatch(setLoginStatus('failed'))
+    } finally {
+      dispatch(setLoginStatus('idle'))
+    }
   }
-}
 
 export const logout = (): AppThunk => async (dispatch) => {
   try {

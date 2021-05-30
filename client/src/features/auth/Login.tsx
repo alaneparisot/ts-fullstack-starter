@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { Credentials, login, selectLoginStatus } from '../auth'
-import { APP_CONSTANTS } from '../../app'
+import { AUTO_HIDE_DURATION } from '../../app'
 import { Page } from '../../components'
 
 export function Login() {
@@ -139,7 +139,7 @@ export function Login() {
 
       <Snackbar
         open={openAlertSuccess}
-        autoHideDuration={APP_CONSTANTS.autoHideDuration}
+        autoHideDuration={AUTO_HIDE_DURATION}
         onClose={() => handleCloseAlert('success')}
         data-testid="notification-success"
       >
@@ -150,7 +150,7 @@ export function Login() {
 
       <Snackbar
         open={openAlertError}
-        autoHideDuration={APP_CONSTANTS.autoHideDuration}
+        autoHideDuration={AUTO_HIDE_DURATION}
         onClose={() => handleCloseAlert('error')}
         data-testid="notification-error"
       >

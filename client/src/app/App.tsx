@@ -7,17 +7,19 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useEffect, useMemo } from 'react'
 import { useCookies } from 'react-cookie'
 import { useDispatch, useSelector } from 'react-redux'
-import { Route, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
+
 import { createTheme, DARK, LIGHT } from './theme'
 import { TopBar } from '../components'
 import {
-  Login,
+  AUTH_ROUTE,
+  AuthRouter,
   fetchCsrfToken,
   selectFetchCsrfTokenStatus,
   selectLoginStatus,
   selectLogoutStatus,
 } from '../features/auth'
-import { Home } from '../features/home'
+import { Home, HOME_ROUTE } from '../features/home'
 import {
   fetchCurrentUser,
   resetCurrentUser,
@@ -77,11 +79,14 @@ export function App() {
       <Container>
         <Box pt={5}>
           <Switch>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/">
+            <Route exact path={HOME_ROUTE}>
               <Home />
+            </Route>
+            <Route path={AUTH_ROUTE}>
+              <AuthRouter />
+            </Route>
+            <Route path="*">
+              <Redirect to={HOME_ROUTE} />
             </Route>
           </Switch>
         </Box>

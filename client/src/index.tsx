@@ -11,7 +11,7 @@ import reportWebVitals from './reportWebVitals'
 import { App, store } from './app'
 import { ErrorFallback, Spinner } from './components'
 
-const suspenseFallback = (
+const i18nLoader = (
   <Box
     display="flex"
     justifyContent="center"
@@ -27,7 +27,7 @@ ReactDOM.render(
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <CookiesProvider>
         <Provider store={store}>
-          <Suspense fallback={suspenseFallback}>
+          <Suspense fallback={i18nLoader}>
             <Router>
               <App />
             </Router>

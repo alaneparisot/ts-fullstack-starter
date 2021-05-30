@@ -1,6 +1,4 @@
-export const APP_CONSTANTS = Object.freeze({
-  /**
-   * @see https://material-ui.com/api/snackbar/#props
-   */
-  autoHideDuration: 6000,
-})
+/**
+ * @see https://material-ui.com/api/snackbar/#props
+ */
+export const AUTO_HIDE_DURATION = 6000

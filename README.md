@@ -69,4 +69,5 @@
 - [ ] Improve login: check user extracted from token exists in database
 - [ ] Improve logout: invalid access token on backend side
 - [ ] Validate username and password on register, on server-side
-- [ ] Add lazy-loading on client side
+- [x] Add lazy-loading on client side
+- [ ] Client: Create a user profile page to implement [PrivateRoute](https://reactrouter.com/web/example/auth-workflow)

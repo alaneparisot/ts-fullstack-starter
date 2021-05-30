@@ -16,8 +16,9 @@ import { useCookies } from 'react-cookie'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+
 import { selectCurrentUser } from './'
-import { logout } from '../auth'
+import { ABSOLUTE_LOGIN_ROUTE, logout } from '../auth'
 import {
   selectFetchCurrentUserStatus,
   selectUserPreferences,
@@ -97,7 +98,7 @@ export function UserMenu() {
         {user ? (
           <MenuItem onClick={handleLogout}>{t('auth:logout')}</MenuItem>
         ) : (
-          <MenuItem onClick={() => handleLinkClick('/login')}>
+          <MenuItem onClick={() => handleLinkClick(ABSOLUTE_LOGIN_ROUTE)}>
             {t('auth:login')}
           </MenuItem>
         )}
@@ -110,10 +111,10 @@ export function UserMenu() {
               onChange={handleLanguageChange}
             >
               <MenuItem value={'en-US'} data-testid="language-option-en-US">
-                English
+                English {/* Do not translate. */}
               </MenuItem>
               <MenuItem value={'fr-FR'} data-testid="language-option-fr-FR">
-                Français
+                Français {/* Do not translate. */}
               </MenuItem>
             </Select>
           </FormControl>
