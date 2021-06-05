@@ -58,7 +58,7 @@
 - [ ] Commit hooks (linter)
 - [x] Commit hooks (tests)
 - [x] Handle error exception on client side
-- [ ] Handle logs on client side (+ in <ErrorBoundary />)
+- [ ] Handle logs on client side (+ in ErrorBoundary)
 - [ ] Add analytics
 - [ ] Add Storybook
 - [ ] Move to PostgreSQL (+Type ORM) ⚠️ Not MERN

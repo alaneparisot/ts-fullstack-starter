@@ -6,6 +6,7 @@ import {
   initialState,
   render,
   screen,
+  waitFor,
   within,
 } from '../../../utils/test-utils'
 import { App } from '../../../app'
@@ -39,7 +40,10 @@ describe('UserMenu', () => {
         userEvent.click(getUserMenuItem('i18n-auth:login'))
 
         // Assert
-        expect(screen.getByTestId('page-i18n-login')).toBeInTheDocument()
+        // Wait for Login component to lazy-load.
+        waitFor(() =>
+          expect(screen.getByTestId('page-i18n-login')).toBeInTheDocument(),
+        )
       })
     })
 
