@@ -14,7 +14,7 @@ Now you have the base structure to start the development of your next fullstack 
 
 ## 📅 Update (December 2021)
 
-Software crafting is a never-ending challenge, with always more modern ways to do things, especially in the fast-paced JavaScript environment. In December 2021, considering what I’ve learned since the beginning of this project, these are things I would do differently:
+Software crafting is a never-ending challenge, with always more modern ways to do things, especially in the fast-paced JavaScript environment. In December 2021, considering what I’ve learned since the beginning of this project, there are things I would do differently:
 
 - I would use [**Apollo GraphQL**](https://apollographql.com) combined with [TypeGraphQL](https://typegraphql.com/), or at least [RTK Query](https://redux-toolkit.js.org/rtk-query/overview), for productivity reasons.
 - I would use [**PostgreSQL**](https://www.postgresql.org) combined with [TypeORM](https://typeorm.io), for performance reasons.
@@ -25,8 +25,8 @@ Anyway, for a starter project, good enough is good enough, and done is better th
 
 ## ✨ Features
 
-- **Types _everywhere_** with [TypeScript](https://www.typescriptlang.org), on backend ([Express](https://expressjs.com)) and frontend ([React 17](https://reactjs.org) and [Redux Toolkit](https://redux-toolkit.js.org))
-- **Tests _everywhere_** with [Jest](https://jestjs.io), on backend and frontend ([React Testing Library](https://testing-library.com/docs/react-testing-library/intro))
+- **Types _everywhere_** with [TypeScript](https://www.typescriptlang.org), on both backend ([Express](https://expressjs.com)) and frontend ([React 17](https://reactjs.org) and [Redux Toolkit](https://redux-toolkit.js.org))
+- **Tests _everywhere_** with [Jest](https://jestjs.io), on both backend and frontend ([React Testing Library](https://testing-library.com/docs/react-testing-library/intro))
 - **NoSQL database** with [MondoDB](https://www.mongodb.com)
 - **Authentication** with [JSON Web Token](https://jwt.io)
 - **Routing** with [React Router](https://reactrouter.com)
