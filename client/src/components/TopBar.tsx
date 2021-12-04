@@ -31,7 +31,7 @@ export function TopBar() {
           data-testid="app-title"
         >
           <StyledLink to="/" className={classes.link}>
-            MERN TS Starter
+            TS Fullstack Starter (by Alane Parisot)
           </StyledLink>
         </Typography>
         <UserMenu />

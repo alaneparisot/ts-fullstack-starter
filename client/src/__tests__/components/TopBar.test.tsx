@@ -13,7 +13,7 @@ describe('TopBar', () => {
     })
 
     // Act
-    userEvent.click(screen.getByText('MERN TS Starter'))
+    userEvent.click(screen.getByTestId('app-title'))
 
     // Assert
     expect(screen.getByTestId('page-i18n-welcome')).toBeInTheDocument()
