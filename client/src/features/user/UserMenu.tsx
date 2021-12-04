@@ -81,7 +81,9 @@ export function UserMenu() {
   ) : (
     <>
       <Box mr={1} data-testid="username">
-        <Typography variant="body2">{user?.username}</Typography>
+        <Typography variant="body2" component="span">
+          {user?.username}
+        </Typography>
       </Box>
       <IconButton onClick={handleIconClick}>
         <AccountCircle />

@@ -31,7 +31,10 @@ export function TopBar() {
           data-testid="app-title"
         >
           <StyledLink to="/" className={classes.link}>
-            TS Fullstack Starter (by Alane Parisot)
+            TS Fullstack Starter{' '}
+            <Typography variant="subtitle1" component="span">
+              by Alane Parisot
+            </Typography>
           </StyledLink>
         </Typography>
         <UserMenu />
