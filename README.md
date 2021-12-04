@@ -1,4 +1,4 @@
-![MERN TS Starter](https://github.com/alaneparisot/ts-fullstack-starter/blob/main/ts-fullstack-starter.png?raw=true)
+![TS Fullstack Starter](https://github.com/alaneparisot/ts-fullstack-starter/blob/main/ts-fullstack-starter.png?raw=true)
 
 ## ⭐ Motivation
 
