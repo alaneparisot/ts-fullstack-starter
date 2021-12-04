@@ -10,7 +10,7 @@ Here comes **TS Fullstack Starter** 🎉
 
 Now you have the base structure to start the development of your next fullstack web application at light speed ⚡
 
-[**_Check out the demo!_**](https://ts-fullstack-starter.herokuapp.com) You can log in by submitting `test` as username and password.
+[**_Check out the demo!_**](https://ts-fullstack-starter.herokuapp.com) Note: You can log in by submitting `test` as username and password.
 
 ## 📅 Update (December 2021)
 
