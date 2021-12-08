@@ -2,7 +2,7 @@
 
 ## ⭐ Motivation
 
-Well, I don't you about you, but for me, when I have an idea, I don't want my time, energy, and motivation to be eaten by some boilerplate hassle or tedious configuration, which can very quickly become very tiresome 🥱
+Well, I don't know about you, but for me, when I have an idea, I don't want my time, energy, and motivation to be eaten by some boilerplate hassle or tedious configuration, which can very quickly become very tiresome 🥱
 
 What I want, at least at first, is to move fast and take the shortest path to make my idea real and alive 🚀
 
